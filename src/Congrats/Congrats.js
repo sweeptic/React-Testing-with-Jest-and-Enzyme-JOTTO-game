@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Congrats = (props) => (
   <div data-test='component-congrats' className="CongratsWrapper">
-    Test content
+    
   </div>
 );
 
