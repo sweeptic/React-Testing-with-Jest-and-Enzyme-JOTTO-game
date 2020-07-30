@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 //import style from './Congrats.module.css';
 
 const Congrats = (props) => (
-  <div className="CongratsWrapper">
+  <div data-test='component-congrats' className="CongratsWrapper">
     Test content
   </div>
 );

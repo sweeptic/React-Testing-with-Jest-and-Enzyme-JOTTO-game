@@ -4,7 +4,7 @@ import Congrats from './Congrats/Congrats'
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div data-test='component-app'>
         <Congrats />
       </div>
     )
