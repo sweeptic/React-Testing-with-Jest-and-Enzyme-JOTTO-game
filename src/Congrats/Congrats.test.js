@@ -3,7 +3,7 @@ import { configure, shallow, mount, render } from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
 
 import Congrats from './Congrats';
-import { findByTestAttr } from '../../test/testUtils';
+import { findByTestAttr, checkProps } from '../../test/testUtils';
 
 
 
@@ -41,8 +41,10 @@ test('renders none-empty congrats message when success prop is true ', () => {
   expect(message.text().length).not.toBe(0);
 })
 
-test('renders without error ', () => {
-})
+test('does not throw warning with expected props ', () => {
+  const expectedProps = { success: false };
+  checkProps(Congrats, expectedProps)
+});
 
 
 export default Congrats;
