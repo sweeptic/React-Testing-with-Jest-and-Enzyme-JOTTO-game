@@ -9,6 +9,8 @@ import { findByTestAttr, checkProps } from '../../test/testUtils';
 
 configure({ adapter: new EnzymeAdapter() });
 
+const defaultProps = { success: false };
+
 /** 
 * Factory function to create ShallowWrapper for the Congrats component
 * @function setup
@@ -17,7 +19,8 @@ configure({ adapter: new EnzymeAdapter() });
 * @returns {ShallowWrapper}
 */
 const setup = (props = {}, state = null) => {
-  const wrapper = shallow(<Congrats {...props} />)
+  const setupProps = { ...defaultProps, ...props } //props overwrite defaultprops..
+  const wrapper = shallow(<Congrats {...setupProps} />)
   if (state) wrapper.setState(state);
   return wrapper;
 }
