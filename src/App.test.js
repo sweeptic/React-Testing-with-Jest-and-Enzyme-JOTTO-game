@@ -21,7 +21,7 @@ const setup = (props = {}, state = null) => {
 }
 
 test('renders without error ', () => {
-  const wrapper = setup();
+  const wrapper = setup({ success: false });
   const appComponent = findByTestAttr(wrapper, 'component-app');
   expect(appComponent.length).toBe(1);
 })

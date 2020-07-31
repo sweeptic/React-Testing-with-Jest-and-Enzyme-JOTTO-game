@@ -30,7 +30,7 @@ const Congrats = (props) => {
 
 
 Congrats.propTypes = {
-  // bla: PropTypes.string,
+  success: PropTypes.bool.isRequired
 };
 
 Congrats.defaultProps = {
