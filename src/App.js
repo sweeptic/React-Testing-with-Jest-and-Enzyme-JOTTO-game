@@ -14,7 +14,7 @@ export default class App extends Component {
   render() {
     return (
       <div data-test='component-app'>
-        <Congrats />
+        <Congrats success={false} />
       </div>
     )
   }

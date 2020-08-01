@@ -20,8 +20,10 @@ const setup = (props = {}, state = null) => {
   return wrapper;
 }
 
+
+
 test('renders without error ', () => {
-  const wrapper = setup({ success: false });
+  const wrapper = setup();
   const appComponent = findByTestAttr(wrapper, 'component-app');
   expect(appComponent.length).toBe(1);
 })
