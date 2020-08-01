@@ -15,8 +15,14 @@ const GuessedWords = (props) => (
   </div>
 );
 
+
 GuessedWords.propTypes = {
-  // bla: PropTypes.string,
+  guessedWords: PropTypes.arrayOf(
+    PropTypes.shape({
+      guessedWord: PropTypes.string.isRequired,
+      letterMatchCount: PropTypes.number.isRequired
+    })
+  ).isRequired
 };
 
 GuessedWords.defaultProps = {

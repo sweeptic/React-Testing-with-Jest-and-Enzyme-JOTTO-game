@@ -3,9 +3,15 @@ import { configure, shallow, mount, render } from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
 
 import GuessedWords from './GuessedWords';
-import { findByTestAttr } from '../../test/testUtils';
+import { findByTestAttr, checkProps } from '../../test/testUtils';
 
 configure({ adapter: new EnzymeAdapter() });
+
+
+
+const defaultProps = {
+  guessedWords: [{ guessedWord: 'train', letterMatchCount: 3 }]
+}
 
 /** 
 * Factory function to create ShallowWrapper for the GuessedWords component
@@ -15,25 +21,17 @@ configure({ adapter: new EnzymeAdapter() });
 * @returns {ShallowWrapper}
 */
 const setup = (props = {}, state = null) => {
-  const wrapper = shallow(<GuessedWords {...props} />)
+  const setupProps = { ...defaultProps, ...props };
+  const wrapper = shallow(<GuessedWords {...setupProps} />)
   if (state) wrapper.setState(state);
   return wrapper;
 }
 
-
-/** 
-* Return ShallowWrapper containing node(s) with the given data-test value.
-* @param {ShallowWrapper} wrapper - Enzyme shallow wrapper to search within.
-* @param {string} val - Value of data-test attribute for search.
-* @returns {ShallowWrapper}
-*/
+test('does not throw warning with expected props ', () => {
+  checkProps(GuessedWords, defaultProps)
+});
 
 
-// test('renders without error ', () => {
-//   const wrapper = setup();
-//   const guessedwordsComponent = findByTestAttr(wrapper, 'component-guessedwords');
-//   expect(guessedwordsComponent.length).toBe(1);
-// })
 
 
 export default GuessedWords;
