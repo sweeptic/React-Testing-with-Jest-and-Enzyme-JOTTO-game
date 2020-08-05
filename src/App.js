@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 // import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
-import style from './App.module.css';
+// import style from './App.module.css';
 import GuessedWords from './GuessedWords/GuessedWords'
 import Congrats from './Congrats/Congrats'
 
