@@ -1,8 +1,7 @@
 import React from 'react';
 import { configure, shallow, mount, render } from 'enzyme';
-import { findByTestAttr } from '../../test/testUtils'
+import { findByTestAttr, storeFactory } from '../../test/testUtils'
 import Input from './Input';
-
 
 /**
  * Factory function to create a ShallowWrapper for the GuessedWords component.
@@ -11,7 +10,8 @@ import Input from './Input';
  * @returns {ShallowWrapper}
  */
 const setup = (initialState = {}) => {
-  const wrapper = shallow(<Input />);
+  const store = storeFactory(initialState);
+  const wrapper = shallow(<Input store={store} />);
   console.log(wrapper.debug())
 }
 
