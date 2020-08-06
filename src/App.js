@@ -15,7 +15,7 @@ class App extends PureComponent {
   }
 
   componentDidMount = () => {
-    console.log('App mounted');
+    // console.log('App mounted');
   }
 
 
