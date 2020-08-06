@@ -1,4 +1,3 @@
-
 /**
  * @function successReducer
  * @param {array} state - xxx
@@ -6,6 +5,6 @@
  * @returns {boolean} - new state
  */
 
-export default (state, action) => {
-   return null;
-}
+ export default (state, action) => {
+    return null
+ }
