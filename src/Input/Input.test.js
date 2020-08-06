@@ -1,14 +1,41 @@
 import React from 'react';
 import { configure, shallow, mount, render } from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
-import { findByTestAttr} from '../../test/testUtils'
+import { findByTestAttr } from '../../test/testUtils'
 import Input from './Input';
 
 
-test('renders without error ', () => {
-  // const wrapper = setup();
-  // const inputComponent = findByTestAttr(wrapper, 'component-input');
-  // expect(inputComponent.length).toBe(1);
+describe('render', () => {
+
+  describe('word has not been guessed', () => {
+
+    test('renders component without error', () => {
+
+    });
+    test('renders input box', () => {
+
+    })
+    test('renders submit button', () => {
+
+    });
+
+
+  });
+  describe('word has been guessed', () => {
+
+    test('renders component without error', () => {
+
+    });
+    test('does not render input box', () => {
+
+    })
+    test('does not render submit button', () => {
+
+    });
+  });
+});
+
+describe('update state', () => {
+
 })
 
 
