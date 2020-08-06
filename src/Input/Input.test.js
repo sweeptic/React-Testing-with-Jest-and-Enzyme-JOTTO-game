@@ -11,11 +11,12 @@ import Input from './Input';
  */
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
-  const wrapper = shallow(<Input store={store} />);
-  console.log(wrapper.debug())
+  const wrapper = shallow(<Input store={store} />).dive().dive();
+  return wrapper;
+  // console.log(wrapper.debug())
 }
 
-setup();
+// setup();
 
 describe('render', () => {
 

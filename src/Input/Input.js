@@ -7,7 +7,7 @@ class Input extends PureComponent {
   render() {
     return (
       <div>
-
+        <button></button>
       </div>
     );
   }
