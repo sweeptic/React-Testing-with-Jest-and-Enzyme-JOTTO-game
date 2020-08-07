@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import style from './Congrats.module.css';
 
 
 /** 
@@ -27,14 +26,9 @@ const Congrats = (props) => {
 }
 
 
-
-
 Congrats.propTypes = {
   success: PropTypes.bool.isRequired
 };
 
-Congrats.defaultProps = {
-  // bla: 'test',
-};
 
 export default Congrats;

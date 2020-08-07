@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import style from './GuessedWords.module.css';
 
 
 /** 
@@ -66,8 +65,5 @@ GuessedWords.propTypes = {
   ).isRequired
 };
 
-GuessedWords.defaultProps = {
-  // bla: 'test',
-};
 
 export default GuessedWords;

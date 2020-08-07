@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 class Input extends Component {
 
-
   render() {
     const contents = this.props.success ? null : (
       <form className="form-inline" action="">
@@ -23,7 +22,6 @@ class Input extends Component {
       </form>
     )
 
-
     return (
       <div data-test='component-input' className="">
         {contents}
@@ -32,7 +30,6 @@ class Input extends Component {
 
   }
 }
-
 
 const mapStateToProps = ({ success }) => {
   return { success };
