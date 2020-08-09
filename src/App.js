@@ -1,31 +1,33 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import GuessedWords from './GuessedWords/GuessedWords'
 import Congrats from './Congrats/Congrats'
+import { connect } from 'react-redux';
+import { getSecretWord } from './actions';
+import Input from './Input/Input';
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hasError: false,
-    };
-  }
-
+class App extends Component {
+  
 
   render() {
-    if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
-    }
     return (
       <div data-test='component-app' className="container">
         <h1>Jotto</h1>
-        <Congrats success={true} />
-        <GuessedWords guessedWords={[
-          {guessedWord: 'Train', letterMatchCount: 3}
-        ]} />
+        {/* <Congrats success={true} /> */}
+        <Congrats success={this.props.success} />
+        <Input />
+        <GuessedWords guessedWords={this.props.guessedWords} />
+        {/* <GuessedWords guessedWords={[
+          { guessedWord: 'train', letterMatchCount: 3 }
+        ]} /> */}
       </div>
     );
   }
 }
 
-export default App
+const mapStateToProps = (state) => {
+  const { success, guessedWords, secretWord } = state;
+  return { success, guessedWords, secretWord }
+}
+
+
+export default connect(mapStateToProps, { getSecretWord })(App);
