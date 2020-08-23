@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 //import PropTypes from 'prop-types';
-//import style from './Congrats.module.css';
+//import style from './App.module.css';
 
-class Congrats extends PureComponent { 
+class App extends PureComponent { 
   constructor(props) {
     super(props);
 
@@ -11,27 +11,26 @@ class Congrats extends PureComponent {
     };
   }
 
-
   render () {
     if (this.state.hasError) {
       return <h1>Something went wrong.</h1>;
     }
     return (
-      <div data-test='component-congrats' className="CongratsWrapper">
-        Hello from Congrats Component.
+      <div data-test='component-app' className="AppWrapper">
+        Hello from App Component.
       </div>
     );
   }
 }
 
 /*
-Congrats.propTypes = {
+App.propTypes = {
    bla: PropTypes.string,
 };
 
-Congrats.defaultProps = {
+App.defaultProps = {
    bla: 'test',
 };
 */
 
-export default Congrats;
+export default App;
