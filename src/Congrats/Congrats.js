@@ -1,35 +1,40 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 //import PropTypes from 'prop-types';
-//import style from './Congrats.module.css';
+//import style from './Test.module.css';
 
-class Congrats extends PureComponent { 
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      hasError: false,
-    };
+/** 
+* Functional react component.
+* @function 
+* @param {object} props - React props.
+* @returns {JSX.Element} - Rendered component
+*/
+const Congrats = (props) => {
+
+  let returnedMessage = null ;
+
+  if (props.success) {
+    returnedMessage = ( 
+        <div data-test='congrats-message' className="style">
+          Congratulations! You guessed the word!
+       </div>
+    )
   }
 
 
-  render () {
-    if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
-    }
-    return (
-      <div data-test='component-congrats' className="CongratsWrapper">
-        Hello from Congrats Component.
-      </div>
-    );
-  }
+  return (
+    <div data-test='component-congrats' className="style">
+     {returnedMessage}
+    </div>
+  )
 }
 
 /*
-Congrats.propTypes = {
+Test.propTypes = {
    bla: PropTypes.string,
 };
 
-Congrats.defaultProps = {
+Test.defaultProps = {
    bla: 'test',
 };
 */
