@@ -2,13 +2,16 @@ import React from 'react';
 import { configure, shallow, mount, render } from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
 import Congrats from './Congrats';
+import checkPropTypes from 'check-prop-types'
 
 configure({ adapter: new EnzymeAdapter() });
 
+const defaultProps = { success: false }
 
 //render test
 test('renders without error ', (props = {}) => {
-  const wrapper = shallow(<Congrats {...props} />);
+  const setupProps = { ...defaultProps, ...props }
+  const wrapper = shallow(<Congrats {...setupProps} />);
   const appComponent = wrapper.find("[data-test='component-congrats']");
   expect(appComponent.length).toBe(1);
 })
@@ -27,6 +30,11 @@ test('if "success" prop is false -> render empty congrat message ', (props = { s
   expect(component.text()).toBe('');
 })
 
+test('does not throw warning with expected props', () => {
+  const expectedProps = { success: false };
+  const propError = checkPropTypes(Congrats.propTypes, expectedProps, 'prop', Congrats.name);
+  expect(propError).toBeUndefined();
+});
 
-// 
+
 export default Congrats;

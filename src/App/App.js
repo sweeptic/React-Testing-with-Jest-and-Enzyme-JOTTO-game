@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-
 //import PropTypes from 'prop-types';
 //import style from './App.module.css';
 
@@ -19,7 +18,6 @@ class App extends PureComponent {
     return (
       <div data-test='component-app' className="AppWrapper">
         Hello from App Component.
-        
       </div>
     );
   }

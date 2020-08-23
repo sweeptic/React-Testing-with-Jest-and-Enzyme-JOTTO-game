@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 //import style from './Test.module.css';
 
 
@@ -29,12 +29,12 @@ const Congrats = (props) => {
   )
 }
 
-/*
-Test.propTypes = {
-   bla: PropTypes.string,
+Congrats.propTypes = {
+   success: PropTypes.bool.isRequired,
 };
 
-Test.defaultProps = {
+/*
+Congrats.defaultProps = {
    bla: 'test',
 };
 */
