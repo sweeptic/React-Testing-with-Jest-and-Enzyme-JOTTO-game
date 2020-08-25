@@ -18,8 +18,38 @@ const setup = (props = {}) => {
 
 
 test('does not throw warning with expected props', () => {
-  const propError =checkPropTypes(GuessedWords.propTypes, defaultProps, 'prop', GuessedWords.name);
+  const propError = checkPropTypes(GuessedWords.propTypes, defaultProps, 'prop', GuessedWords.name);
   expect(propError).toBeUndefined();
 });
+
+
+describe('if there are no words guessed', () => {
+
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup({ guessedWords: [] });
+  })
+
+
+  //render test
+  test('renders without error ', (props = {}) => {
+    // const setupProps = { ...defaultProps, ...props }
+    // const wrapper = shallow(<GuessedWords {...setupProps} />);
+    const component = wrapper.find("[data-test='component-guessed-words']");
+    expect(component.length).toBe(1);
+  })
+
+  test('renders instructions to guess a word', () => {
+    const instruction = wrapper.find("[data-test='component-instruction']");
+    expect(instruction.text().length).not.toBe(1);
+  })
+
+
+})
+
+describe('if there are words guessed', () => {
+
+})
+
 
 export default GuessedWords;

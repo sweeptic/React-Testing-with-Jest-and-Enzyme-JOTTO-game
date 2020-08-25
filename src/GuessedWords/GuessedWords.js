@@ -9,11 +9,24 @@ import PropTypes from 'prop-types';
 * @param {object} props - React props.
 * @returns {JSX.Element} - Rendered component
 */
-const GuessedWords = (props) => (
-  <div data-test='component-guessedwords' className="style">
-    Hello from GuessedWords functional component.
-  </div>
-);
+const GuessedWords = (props) => {
+  let contents;
+
+  if (props.guessedWords.length === 0) {
+    contents = (
+      <span data-test="component-instruction">
+        Try to guess the secret word!
+      </span>
+    )
+  }
+
+
+  return (
+    <div data-test='component-guessed-words' className="style">
+      {contents}
+    </div>
+  )
+};
 
 
 GuessedWords.propTypes = {
