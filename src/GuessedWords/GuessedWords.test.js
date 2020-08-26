@@ -30,11 +30,8 @@ describe('if there are no words guessed', () => {
     wrapper = setup({ guessedWords: [] });
   })
 
-
   //render test
-  test('renders without error ', (props = {}) => {
-    // const setupProps = { ...defaultProps, ...props }
-    // const wrapper = shallow(<GuessedWords {...setupProps} />);
+  test('renders without error ', () => {
     const component = wrapper.find("[data-test='component-guessed-words']");
     expect(component.length).toBe(1);
   })
@@ -48,6 +45,34 @@ describe('if there are no words guessed', () => {
 })
 
 describe('if there are words guessed', () => {
+  let wrapper;
+  const guessedWords = [
+    { guessedWord: 'train', letterMatchCount: 3 },
+    { guessedWord: 'agile', letterMatchCount: 1 },
+    { guessedWord: 'party', letterMatchCount: 5 }
+  ]
+  beforeEach(() => {
+    console.log({ guessedWords })
+    wrapper = setup({ guessedWords });
+  })
+
+  test('renders without error', () => {
+    const component = wrapper.find("[data-test='component-guessed-words']");
+    expect(component.length).toBe(1);
+  })
+
+  //table with title
+  test('renders "guessed words" section', () => {
+    const guessedWordsNode = wrapper.find("[data-test='guessed-words']");
+    expect(guessedWordsNode.length).toBe(1);
+  })
+
+  // etc 3 word guessed -> three row in table
+  test('correct number of guessed words', () => {
+    const guessedWordsNode = wrapper.find("[data-test='guessed-word']");
+    expect(guessedWordsNode.length).toBe(guessedWords.length);
+  })
+
 
 })
 
