@@ -52,7 +52,7 @@ describe('if there are words guessed', () => {
     { guessedWord: 'party', letterMatchCount: 5 }
   ]
   beforeEach(() => {
-    console.log({ guessedWords })
+    // console.log({ guessedWords })
     wrapper = setup({ guessedWords });
   })
 
