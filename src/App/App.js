@@ -7,11 +7,6 @@ import Congrats from '../Congrats/Congrats'
 
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-
-  }
 
   render() {
 
