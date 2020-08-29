@@ -2,14 +2,23 @@ import React from 'react';
 import { configure, shallow, mount, render } from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
 import Input from './Input';
+import { storeFactory } from '../Utils/testUtils';
 //import checkPropTypes from 'check-prop-types'
 
 
+configure({ adapter: new EnzymeAdapter() });
+
+
+const setup = (initialState = {}) => {
+  const store = storeFactory(initialState);
+  const wrapper = shallow(<Input store={store} />);
+  console.log(wrapper.debug())
+}
+
+setup()
 
 describe('render', () => {
-
   describe('word has not been guessed', () => {
-
     test('renders component without error', () => {
 
     });
@@ -20,9 +29,7 @@ describe('render', () => {
 
     });
   });
-
   describe('word has been guessed', () => {
-
     test('renders component without error', () => {
 
     });

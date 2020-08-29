@@ -20,7 +20,4 @@ const mapStateToProps = state => {
 //   // fnBlaBla: () => dispatch(action.name()),
 // });
 
-export default connect(
-  mapStateToProps,
-  // mapDispatchToProps,
-)(Input);
+export default connect(mapStateToProps, null)(Input);
