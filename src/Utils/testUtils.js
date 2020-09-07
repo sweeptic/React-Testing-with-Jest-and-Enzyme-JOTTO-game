@@ -1,5 +1,6 @@
 
 
+//reducers from the app settings
 import rootReducer from '../reducers'
 import { createStore } from 'redux'
 
