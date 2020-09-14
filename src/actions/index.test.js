@@ -3,8 +3,6 @@ import { getSecretWord } from '.';
 import { storeFactory } from '../Utils/testUtils';
 
 
-
-
 describe('get secret action creator', () => {
    beforeEach(() => {
       moxios.install();
@@ -16,7 +14,6 @@ describe('get secret action creator', () => {
       const secretWord = 'party';
       const store = storeFactory()
 
-
       moxios.wait(() => {
          const request = moxios.requests.mostRecent();
          request.respondWith({
@@ -24,6 +21,7 @@ describe('get secret action creator', () => {
             response: secretWord
          })
       })
+      
       return store.dispatch(getSecretWord())
          .then(() => {
             const newState = store.getState();
