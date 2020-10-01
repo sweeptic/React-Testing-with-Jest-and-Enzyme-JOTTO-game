@@ -1,16 +1,38 @@
 import React from 'react';
-import { configure, shallow, mount, render } from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
+import { shallow, } from 'enzyme';
+
+import { storeFactory } from '../Utils/testUtils';
 import App from './App';
 
-configure({ adapter: new EnzymeAdapter() });
+
+const setup = (state = {}) => {
+  const store = storeFactory(state);
+  const wrapper = shallow(<App store={store} />).dive().dive();
+  return wrapper;
+}
 
 
-test('renders without error ', () => {
-  const wrapper = shallow(<App />);
-  const appComponent = wrapper.find("[data-test='component-app']");
-  expect(appComponent.length).toBe(1);
-})
+
+describe('redux properties', () => {
+
+  test('has access to "success" state ', () => {
+
+  });
+
+  test('has access to "secretWord" state ', () => {
+
+  });
+
+  test('has access to "guessedWords" state ', () => {
+
+  });
+
+  test('get "secretWord" action creator is a function on the props', () => {
+
+  });
+
+});
+
 
 
 export default App;
