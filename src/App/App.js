@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import GuessedWords from '../GuessedWords/GuessedWords'
 import Congrats from '../Congrats/Congrats'
-
-//import PropTypes from 'prop-types';
-//import style from './App.module.css';
-
+import { connect } from 'react-redux';
+import { getSecretWord } from '../actions';
+import Input from '../Input/Input'
 
 class App extends PureComponent {
 
@@ -14,15 +13,19 @@ class App extends PureComponent {
       <div data-test='component-app' className="container">
         {/* later this will be coming from the redux store */}
         <h1>Jotto</h1>
-        <Congrats success={true } />
-        <GuessedWords guessedWords={[
-          {guessedWord: 'train', letterMatchCount: 3}
-        ]} />
+        <Congrats success={this.props.success} />
+        <Input />
+        <GuessedWords guessedWords={this.props.guessedWords} />
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  const { success, guessedWords, secretWord } = state;
+  return { success, guessedWords, secretWord }
+}
 
 
-export default App;
+
+export default connect(mapStateToProps, { getSecretWord })(App)
