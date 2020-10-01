@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 import { getSecretWord } from '../actions';
 import Input from '../Input/Input'
 
-class App extends PureComponent {
+export class UnconnectedApp extends PureComponent {
+
+
+  componentDidMount() {
+    //get the secret word
+    this.props.getSecretWord()
+  }
 
   render() {
 
@@ -28,4 +34,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, { getSecretWord })(App)
+export default connect(mapStateToProps, { getSecretWord })(UnconnectedApp)
