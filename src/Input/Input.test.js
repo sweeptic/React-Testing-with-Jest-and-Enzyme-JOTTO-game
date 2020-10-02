@@ -87,22 +87,17 @@ describe('"guessWord" action creator call', () => {
   beforeEach(() => {
     //create a mock function for 'getSecretWord'
     guessWordMock = jest.fn();
-    const props = {
-      guessWord: guessWordMock
-    };
 
     //set up input, with guessWordMock as a prop
-    wrapper = shallow(<UnconnectedInput {...props} />);
+    wrapper = shallow(<UnconnectedInput guessWord={guessWordMock} />);
 
     //add value to input box
     wrapper.setState({ currentGuess: guessedWord })
 
     //simulate click on submit button
     const submitButton = wrapper.find("[data-test='submit-button']");
-    submitButton.simulate('click');
-
+    submitButton.simulate('click', { preventDefault() { } });
   })
-
 
 
   test('"guessWord" was called once', () => {
