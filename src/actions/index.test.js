@@ -1,3 +1,3 @@
-describe('getSecretWord action creator', () => {
-  test('adds response word to state', () => {});
-});
+// describe('getSecretWord action creator', () => {
+//   test('adds response word to state', () => {});
+// });
