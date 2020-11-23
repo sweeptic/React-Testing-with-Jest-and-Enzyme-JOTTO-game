@@ -11,12 +11,11 @@ export const findByTestAttr = (wrapper, val) => {
 };
 
 /**
-* function to checkProps
-* @function checkProps
-* @param {object} component - description
-* @param {object} conformingProps - descr
-
-*/
+ * function to checkProps
+ * @function checkProps
+ * @param {object} component - description
+ * @param {object} conformingProps - descr
+ */
 export const checkProps = (component, conformingProps) => {
   const propError = checkPropTypes(
     component.propTypes,
