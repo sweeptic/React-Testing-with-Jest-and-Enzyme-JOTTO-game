@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { checkProps, findByTestAttr } from './test/testUtils';
-import Congrats from './Congrats';
+import { checkProps, findByTestAttr } from '../test/testUtils';
+import Congrats from '../Congrats';
 
 // --render component
 // --render - props success true - show congratulation message
