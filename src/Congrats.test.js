@@ -24,19 +24,19 @@ const setup = (props = {}) => {
 test('render component ', () => {
   const wrapper = setup();
   const component = findByTestAttr('wrapper', 'component-congrats');
-  expect(component.length().toBe(1));
+  expect(component.length).toBe(1);
 });
 
-test('render - props success true - show congratulation message ', () => {
+test('renders no text when `success` prop is false ', () => {
+  const wrapper = setup({ success: false });
+  const component = findByTestAttr(wrapper, 'component-congrats');
+  expect(component.text()).toBe('');
+});
+
+test('renders non-empty congrats message when `success` prop is true ', () => {
   const wrapper = setup({ success: true });
-  const component = findByTestAttr(wrapper, 'component-congratulation');
-  expect(component.text().not().toBe(''));
-});
-
-test('render - props success false - doesnt show anything ', () => {
-  const wrapper = setup({ props: false });
-  const component = findByTestAttr(wrapper, 'component-');
-  expect(component.text().toBe(''));
+  const component = findByTestAttr(wrapper, 'congrats-message');
+  expect(component.text().length.not.toBe(0));
 });
 
 test('proptypes - dont show warning when expected props ', () => {
