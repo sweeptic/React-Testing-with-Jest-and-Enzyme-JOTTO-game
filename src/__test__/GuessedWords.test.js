@@ -65,4 +65,6 @@ describe('render tests', () => {
   });
 });
 
-// test('proptypes - does not throw warning with expected props ', () => {});
+test('proptypes - does not throw warning with expected props ', () => {
+  checkProps(GuessedWords, defaultProps);
+});

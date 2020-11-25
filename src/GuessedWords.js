@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const GuessedWords = props => {
   let contents;
@@ -22,14 +22,14 @@ const GuessedWords = props => {
   return <div data-test='component-guessed-words'>{contents}</div>;
 };
 
-//array of object proptypes
-// GuessedWords.propTypes = {
-//   GuessedWords: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       guessedWord: PropTypes.string.isRequired,
-//       letterMatchCount: PropTypes.number.isRequired,
-//     })
-//   ).isRequired,
-// };
+// array of object proptypes
+GuessedWords.propTypes = {
+  guessedWords: PropTypes.arrayOf(
+    PropTypes.shape({
+      guessedWord: PropTypes.string.isRequired,
+      letterMatchCount: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+};
 
 export default GuessedWords;
