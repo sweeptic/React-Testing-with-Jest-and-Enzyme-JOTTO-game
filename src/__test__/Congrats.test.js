@@ -24,14 +24,14 @@ test('render component ', () => {
 
 test('renders no text when `success` prop is false ', () => {
   const wrapper = setup({ success: false });
-  const component = findByTestAttr(wrapper, 'component-message');
+  const component = findByTestAttr(wrapper, 'component-congrats');
   expect(component.text()).toBe('');
 });
 
 test('renders non-empty congrats message when `success` prop is true ', () => {
   const wrapper = setup({ success: true });
-  const component = findByTestAttr(wrapper, 'component-message');
-  expect(component.text().length).not.toBe('');
+  const component = findByTestAttr(wrapper, 'congrats-message');
+  expect(component.text().length).not.toBe(0);
 });
 
 test('proptypes - dont show warning when expected props ', () => {});
