@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const Input = ({ success }) => {
-  let content = !success ? (
+  console.log(success);
+
+  const content = success ? null : (
     <form className='form-inline'>
       <input
         data-test='input-box'
@@ -18,7 +20,7 @@ const Input = ({ success }) => {
         Submit
       </button>
     </form>
-  ) : null;
+  );
 
   return <div data-test='component-input'>{content}</div>;
 };
