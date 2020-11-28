@@ -1,12 +1,19 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const Input = () => {
+const Input = props => {
   return <div></div>;
 };
 
-// Congrats.propTypes = {
-// prop: PropTypes.type.isRequired,
-// };
+const mapStateToProps = state => {
+  return {};
+};
 
-export default Input;
+// const mapDispatchToProps = dispatch => ({
+//   // fnBlaBla: () => dispatch(action.name()),
+// });
+
+export default connect(
+  mapStateToProps
+  // mapDispatchToProps,
+)(Input);
