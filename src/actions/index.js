@@ -1,5 +1,7 @@
-export const actionTypes = { SUCCESS_GUESS: 'SUCCESS_GUESS' };
+export const actionTypes = { CORRECT_GUESS: 'CORRECT_GUESS' };
 
 export function correctGuess() {
-  return { type: actionTypes.CORRECT_GUESS };
+  //   return { type: actionTypes.CORRECT_GUESS };
+
+  return {};
 }
