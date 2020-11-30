@@ -1,8 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Input = () => {
-  return <div></div>;
+const Input = state => {
+  console.log(state.success);
+
+  let content;
+
+  content = state.success ? null : (
+    <div>
+      <input data-test='component-input-box'></input>
+      <button type='submit' data-test='component-submit-button'></button>
+    </div>
+  );
+
+  return <div data-test='component-input'>{content}</div>;
 };
 
 const mapStateToProps = state => {
