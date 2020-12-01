@@ -3,11 +3,6 @@ import { applyMiddleware, createStore } from 'redux';
 import { middlewares } from '../configureStore';
 import rootReducer from '../reducers/index';
 
-import rootReducer from '../reducers';
-import { createStore, applyMiddleware } from 'redux';
-import { middlewares } from '../configureStore';
-import rootReducer from '../reducers/index';
-
 /**
  * Create a testing store with imported reducers, middleware, and initial state.
  *  globals: rootReducer, middlewares.
