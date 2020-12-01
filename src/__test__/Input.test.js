@@ -40,6 +40,7 @@ describe('render', () => {
 
   describe('word has been guessed', () => {
     let wrapper;
+
     beforeEach(() => {
       wrapper = setup({ success: true });
     });
@@ -50,11 +51,11 @@ describe('render', () => {
     });
     test('does not render input box', () => {
       const component = findByTestAttr(wrapper, 'input-box');
-      expect(component.length).toBe(1);
+      expect(component.length).toBe(0);
     });
     test('does not render submit button', () => {
       const component = findByTestAttr(wrapper, 'submit-button');
-      expect(component.length).toBe(1);
+      expect(component.length).toBe(0);
     });
   });
 });
