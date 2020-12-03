@@ -11,10 +11,7 @@ import rootReducer from '../reducers/index';
  * @returns {Store} - Redux store.
  */
 export const storeFactory = initialState => {
-  const createStoreWithMiddleware = applyMiddleware(...middlewares)(
-    createStore
-  );
-  return createStoreWithMiddleware(rootReducer, initialState);
+  return createStore(rootReducer, initialState);
 };
 
 /**

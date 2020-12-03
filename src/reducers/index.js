@@ -5,6 +5,4 @@ import secretWord from './secretWordReducer';
 
 export default combineReducers({
   success: success,
-  guessedWords: guessedWords,
-  secretWord: secretWord,
 });
