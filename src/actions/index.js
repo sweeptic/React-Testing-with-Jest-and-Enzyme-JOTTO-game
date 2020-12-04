@@ -15,6 +15,10 @@ export default guessedWord => {
       payload: { guessedWord, letterMatchCount },
     });
 
-    console.log(guessedWord);
+    if (secretWord === guessedWord) {
+      dispatch({
+        type: actionTypes.CORRECT_GUESS,
+      });
+    }
   };
 };
