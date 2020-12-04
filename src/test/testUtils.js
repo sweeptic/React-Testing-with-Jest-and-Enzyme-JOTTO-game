@@ -1,6 +1,6 @@
 import checkPropTypes from 'check-prop-types';
-import { applyMiddleware, createStore } from 'redux';
-import { middlewares } from '../configureStore';
+import { createStore } from 'redux';
+
 import rootReducer from '../reducers/index';
 
 /**
@@ -10,12 +10,8 @@ import rootReducer from '../reducers/index';
  * @function storeFactory
  * @returns {Store} - Redux store.
  */
-
 export const storeFactory = initialState => {
-  const createStoreWithMiddleware = applyMiddleware(...middlewares)(
-    createStore
-  );
-  return createStoreWithMiddleware(rootReducer, initialState);
+  return createStore(rootReducer, initialState);
 };
 
 /**
