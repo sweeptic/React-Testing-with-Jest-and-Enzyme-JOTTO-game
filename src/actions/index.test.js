@@ -23,10 +23,16 @@ describe('getSecretWord action creator', () => {
       });
     });
 
-    return store.dispatch(getSecretWord()).then(() => {
+    // store.dispatch(getSecretWord());
+    // console.log(newState);
+
+    const res = store.dispatch(getSecretWord()).then(() => {
       const newState = store.getState();
       expect(newState.secretWord).toBe(secretWord);
+      console.log('run test then');
     });
+
+    return res; //the res is part of our test function
   });
 });
 
