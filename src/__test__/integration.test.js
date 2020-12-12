@@ -30,6 +30,7 @@ describe('guessWord action dispatcher', () => {
       const newState = store.getState();
       const expectedState = {
         ...initialState,
+        success: true,
         guessedWords: [{ guessedWord: secretWord, letterMatchCount: 5 }],
       };
       expect(newState).toEqual(expectedState);

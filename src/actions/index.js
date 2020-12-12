@@ -19,6 +19,12 @@ export const guessWord = guessedWord => {
         letterMatchCount: letterMatchCount,
       },
     });
+
+    if (guessedWord == secretWord) {
+      dispatch({
+        type: actionTypes.CORRECT_GUESS,
+      });
+    }
   };
 };
 
