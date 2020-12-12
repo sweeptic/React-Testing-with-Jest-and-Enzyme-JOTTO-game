@@ -29,7 +29,7 @@ export const getSecretWord = () => {
         type: actionTypes.SET_SECRETWORD,
         payload: response.data,
       });
-      console.log('response received from action index');
+      // console.log('response received from action index');
     });
   };
 };

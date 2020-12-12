@@ -24,7 +24,7 @@ describe('get secret word and test store', () => {
     });
 
     return store.dispatch(getSecretWord()).then(() => {
-      console.log('response received from action test');
+      // console.log('response received from action test');
       const newState = store.getState().secretWord;
       const expectedState = secretWord;
       expect(newState).toEqual(expectedState);
