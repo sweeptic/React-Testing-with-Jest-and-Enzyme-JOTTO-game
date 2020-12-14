@@ -13,18 +13,17 @@ describe('set secret word test', () => {
 
   test('axios async call integration test', () => {
     const secretWord = 'party';
+    const store = storeFactory();
 
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        data: secretWord,
+        response: secretWord,
       });
     });
 
-    const store = storeFactory();
-
-    return store.dispatch(getSecretWord()).then(response => {
+    return store.dispatch(getSecretWord()).then(() => {
       expect(store.getState().secretWord).toEqual(secretWord);
     });
   });
