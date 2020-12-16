@@ -8,7 +8,7 @@ import GuessedWords from './GuessedWords';
 export class UnconnectedApp extends Component {
   componentDidMount() {
     // get the secret word
-    // this.props.getSecretWord();
+    this.props.getSecretWord();
   }
 
   render() {
