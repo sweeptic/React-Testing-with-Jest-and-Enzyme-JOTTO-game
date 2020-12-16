@@ -90,7 +90,6 @@ describe('`guessWord` action creator', () => {
 
     // simulate click on submit button
     const submit = findByTestAttr(wrapper, 'submit-button');
-    console.log(submit);
 
     submit.simulate('click');
   });
@@ -98,5 +97,12 @@ describe('`guessWord` action creator', () => {
   test('`guessWord` was called once', () => {
     const guessWordCallCount = guessWordMock.mock.calls.length;
     expect(guessWordCallCount).toBe(1);
+  });
+
+  test('calls `guessWord with input value as argument`', () => {
+    const guessWordArg = guessWordMock.mock.calls[0][0];
+    console.log(guessWordArg);
+
+    expect(guessWordArg).toBe(guessedWord);
   });
 });
