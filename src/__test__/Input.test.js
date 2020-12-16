@@ -86,12 +86,12 @@ describe('`guessWord` action creator', () => {
     wrapper = shallow(<UnconnectedInput guessWord={guessWordMock} />);
 
     // add value to input box
-    // wrapper.setState({ currentGuess: guessedWord });
+    wrapper.setState({ currentGuess: guessedWord });
 
     // simulate click on submit button
     const submit = findByTestAttr(wrapper, 'submit-button');
 
-    submit.simulate('click');
+    submit.simulate('click', { preventDefault() {} });
   });
 
   test('`guessWord` was called once', () => {
