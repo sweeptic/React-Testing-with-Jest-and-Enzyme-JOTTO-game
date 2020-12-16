@@ -105,4 +105,8 @@ describe('`guessWord` action creator', () => {
 
     expect(guessWordArg).toBe(guessedWord);
   });
+
+  test('input box clears on submit', () => {
+    expect(wrapper.state('currentGuess')).toBe('');
+  });
 });
