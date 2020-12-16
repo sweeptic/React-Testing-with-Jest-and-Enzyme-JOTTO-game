@@ -9,10 +9,10 @@ class App extends Component {
       <div data-test='component-app' className='container'>
         {/* later this will be coming from the redux store */}
         <h1>Jotto</h1>
-        {/* <Congrats success={true} /> */}
-        {/* <GuessedWords
+        <Congrats success={true} />
+        <GuessedWords
           guessedWords={[{ guessedWord: 'train', letterMatchCount: 3 }]}
-        /> */}
+        />
       </div>
     );
   }
