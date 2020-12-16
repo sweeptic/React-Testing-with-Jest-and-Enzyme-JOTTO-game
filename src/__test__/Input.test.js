@@ -90,18 +90,13 @@ describe('`guessWord` action creator', () => {
 
     // simulate click on submit button
     const submit = findByTestAttr(wrapper, 'submit-button');
-    submit.simulate('click' /*, { preventDefault() {} }*/);
+    console.log(submit);
+
+    submit.simulate('click');
   });
 
   test('`guessWord` was called once', () => {
     const guessWordCallCount = guessWordMock.mock.calls.length;
     expect(guessWordCallCount).toBe(1);
   });
-  // test('calls `guessWord with input value as argument`', () => {
-  //   const guessWordArg = guessWordMock.mock.calls[0][0];
-  //   expect(guessWordArg).toBe(guessedWord);
-  // });
-  // test('input box clears on submit', () => {
-  //   expect(wrapper.state('currentGuess')).toBe('');
-  // });
 });

@@ -6,6 +6,9 @@ import { guessWord } from './actions';
 export class UnconnectedInput extends Component {
   constructor(props) {
     super(props);
+
+    // initialize state
+    this.state = { currentGuess: null };
   }
 
   render() {
@@ -14,7 +17,12 @@ export class UnconnectedInput extends Component {
     content = this.props.success ? null : (
       <div>
         <input data-test='input-box'></input>
-        <button data-test='submit-button'>send</button>
+        <button
+          onClick={evt => this.props.guessWord('train')}
+          data-test='submit-button'
+        >
+          send
+        </button>
       </div>
     );
 
