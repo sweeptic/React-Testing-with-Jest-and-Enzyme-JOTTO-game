@@ -18,7 +18,7 @@ export class UnconnectedInput extends Component {
       <div>
         <input data-test='input-box'></input>
         <button
-          onClick={evt => this.props.guessWord('train')}
+          onClick={evt => this.props.guessWord('train')} // write here
           data-test='submit-button'
         >
           send
