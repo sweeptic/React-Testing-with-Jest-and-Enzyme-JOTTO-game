@@ -18,9 +18,9 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   const { success, guessedWords, secretWord } = state;
-//   return { success, guessedWords, secretWord };
-// };
+const mapStateToProps = state => {
+  const { success, guessedWords, secretWord } = state;
+  return { success, guessedWords, secretWord };
+};
 
-// export default connect(mapStateToProps, { getSecretWord })(App);
+export default connect(mapStateToProps, { getSecretWord })(App);

@@ -65,7 +65,7 @@ describe('redux props', () => {
     const success = true;
     const wrapper = setup({ success });
     const successProp = wrapper.instance().props.success;
-    expect(successProp).toBe(false);
+    expect(successProp).toBe(success);
   });
   test('has success piece of state as prop', () => {
     const wrapper = setup();
