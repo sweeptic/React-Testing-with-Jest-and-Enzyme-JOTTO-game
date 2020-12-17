@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { findByTestAttr, storeFactory } from '../test/testUtils';
-import Input from '../Input';
+import Input, { UnconnectedInput } from '../Input';
+import { guessWord } from '../actions';
 
 /**
  * Factory function to create a ShallowWrapper for the  component.
@@ -57,5 +58,20 @@ describe('render', () => {
       const component = findByTestAttr(wrapper, 'submit-button');
       expect(component.length).toBe(0);
     });
+  });
+});
+
+describe('redux connected component test in Input component', () => {
+  test('success is redux prop', () => {
+    const success = true;
+    const wrapper = setup({ success });
+    const successProp = wrapper.instance().props.success;
+    expect(successProp).toBe(false);
+  });
+
+  test('guessword action creator is redux prop', () => {
+    const wrapper = setup();
+    const guessWordProp = wrapper.instance().props.guessWord;
+    expect(guessWordProp).not.toBeInstanceOf(Function);
   });
 });

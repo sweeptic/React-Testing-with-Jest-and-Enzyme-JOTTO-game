@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getSecretWord } from './actions';
 import './App.css';
 
 class App extends Component {
@@ -11,4 +13,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    success: state.success,
+    guessedWords: state.guessedWords,
+    secretWord: state.secretWord,
+  };
+};
+
+// export default connect(mapStateToProps, { getSecretWord })(App);
