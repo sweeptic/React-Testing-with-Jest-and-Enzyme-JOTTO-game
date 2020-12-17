@@ -66,12 +66,12 @@ describe('redux connected component test in Input component', () => {
     const success = true;
     const wrapper = setup({ success });
     const successProp = wrapper.instance().props.success;
-    expect(successProp).toBe(false);
+    expect(successProp).toBe(true);
   });
 
   test('guessword action creator is redux prop', () => {
     const wrapper = setup();
     const guessWordProp = wrapper.instance().props.guessWord;
-    expect(guessWordProp).not.toBeInstanceOf(Function);
+    expect(guessWordProp).toBeInstanceOf(Function);
   });
 });
