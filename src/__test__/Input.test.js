@@ -59,3 +59,26 @@ describe('render', () => {
     });
   });
 });
+
+describe('access to redux props ', () => {
+  let wrapper;
+  //connected component test
+
+  test('success piece of state', () => {
+    wrapper = setup({ success: true });
+    const prop = wrapper.instance().props.success;
+    expect(prop).toBe(true);
+  });
+
+  test('secret word piece of state', () => {
+    wrapper = setup({ secretWord: 'party' });
+    const prop = wrapper.instance().props.secretWord;
+    expect(prop).toBe('party');
+  });
+
+  test('guessWord action creator piece of state', () => {
+    wrapper = setup();
+    const prop = wrapper.instance().props.guessWord;
+    expect(prop).toBeInstanceOf(Function);
+  });
+});
