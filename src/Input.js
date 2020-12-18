@@ -1,29 +1,21 @@
 import React from 'react';
-import { Component } from 'react';
 import { connect } from 'react-redux';
-import { guessWord } from './actions';
 
-export class UnconnectedInput extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Input = state => {
+  let content;
 
-  render() {
-    let content;
+  content = state.success ? null : (
+    <div>
+      <input data-test='input-box'></input>
+      <button data-test='submit-button'>send</button>
+    </div>
+  );
 
-    content = this.props.success ? null : (
-      <div>
-        <input data-test='input-box'></input>
-        <button data-test='submit-button'>send</button>
-      </div>
-    );
-
-    return <div data-test='component-input'>{content}</div>;
-  }
-}
+  return <div data-test='component-input'>{content}</div>;
+};
 
 const mapStateToProps = state => {
   return { success: state.success };
 };
 
-export default connect(mapStateToProps, { guessWord })(UnconnectedInput);
+export default connect(mapStateToProps)(Input);
