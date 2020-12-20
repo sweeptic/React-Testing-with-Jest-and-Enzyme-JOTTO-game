@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { findByTestAttr, storeFactory } from '../test/testUtils';
-import Input from '../Input';
+import Input, { UnconnectedInput } from '../Input';
 
 /**
  * Factory function to create a ShallowWrapper for the  component.
@@ -81,4 +81,24 @@ describe('access to redux props ', () => {
     const prop = wrapper.instance().props.guessWord;
     expect(prop).toBeInstanceOf(Function);
   });
+});
+
+describe('', () => {
+  const guessWordMock = jest.fn();
+
+  const props = {
+    guessWord: guessWordMock,
+  };
+
+  //set up unconnected component setup
+  const wrapper = shallow(<UnconnectedInput {...props} />);
+
+  //find the button and click
+  const submitButton = findByTestAttr(wrapper, 'submit-button');
+  submitButton.simulate('click');
+
+  //see if mock run
+  const guessWordCallCount = guessWordMock.mock.calls.length;
+
+  expect(guessWordCallCount).toBe(1);
 });
