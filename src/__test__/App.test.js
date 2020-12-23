@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { storeFactory } from '../test/testUtils';
-import App from '../App';
+import App, { UnconnectedApp } from '../App';
 
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
@@ -39,4 +39,11 @@ describe('redux properties', () => {
   });
 });
 
-// test('`getSecretWord` runs on App mount', () => {});
+test('`getSecretWord` runs on App mount', () => {
+  const getSecretWordMock = jest.fn();
+
+  const wrapper = shallow(<UnconnectedApp getSecretWord={getSecretWordMock} />);
+  wrapper.instance().componentDidMount();
+
+  expect(getSecretWordMock.mock.calls.length).toBe(1);
+});
