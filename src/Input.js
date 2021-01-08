@@ -2,7 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Input = () => {
-  return <div data-test='component-app'></div>;
+  const [currentGuess, setCurrentGuess] = React.useState('');
+
+  return (
+    <div data-test='component-input'>
+      <form>
+        <input
+          type='text'
+          data-test='input-box'
+          value={currentGuess}
+          onChange={evt => {
+            setCurrentGuess(evt.target.value);
+          }}
+        />
+
+        <button
+          type='submit'
+          data-test='submit-button'
+          onClick={evt => {
+            evt.preventDefault();
+            setCurrentGuess('');
+          }}
+        >
+          Guess Word
+        </button>
+      </form>
+    </div>
+  );
 };
 
 //simple propTypes

@@ -9,7 +9,7 @@ const setup = (secretWord = 'party') => {
 
 test('render Input component ', () => {
   const wrapper = setup();
-  const component = findByTestAttr(wrapper, 'component-app');
+  const component = findByTestAttr(wrapper, 'component-input');
   expect(component.length).toBe(1);
 });
 
@@ -24,6 +24,8 @@ describe('state controlled input field', () => {
 
   beforeEach(() => {
     mockSetCurrentGuess.mockClear();
+    // React.useState = jest.fn().mockReturnValue(['', mockSetCurrentGuess]);
+    React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
     wrapper = setup();
   });
 
