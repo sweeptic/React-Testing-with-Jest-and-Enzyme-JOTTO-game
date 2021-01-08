@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import Input from './Input';
 import { checkProps, findByTestAttr } from '../test/testUtils';
 
-const setup = () => {
-  return shallow(<Input />);
+const setup = (secretWord = 'party') => {
+  return shallow(<Input secretWord={secretWord} />);
 };
 
 test('render Input component ', () => {
@@ -14,7 +14,7 @@ test('render Input component ', () => {
 });
 
 test('propTypes - does not throw warning with expected props ', () => {
-  const expectedProps = { secretWord: 1 };
+  const expectedProps = { secretWord: 'party' };
   checkProps(Input, expectedProps);
 });
 
