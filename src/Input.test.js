@@ -1,6 +1,22 @@
-test('render Input component ', () => {});
+import React from 'react';
+import { shallow } from 'enzyme';
+import Input from './Input';
+import { checkProps, findByTestAttr } from '../test/testUtils';
 
-test('propTypes - does not throw warning with expected props ', () => {});
+const setup = () => {
+  return shallow(<Input />);
+};
+
+test('render Input component ', () => {
+  const wrapper = setup();
+  const component = findByTestAttr(wrapper, 'component-app');
+  expect(component.length).toBe(1);
+});
+
+test('propTypes - does not throw warning with expected props ', () => {
+  const expectedProps = { secretWord: 1 };
+  checkProps(Input, expectedProps);
+});
 
 describe('state controlled input field', () => {});
 
