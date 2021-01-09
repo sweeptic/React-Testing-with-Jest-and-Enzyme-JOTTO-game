@@ -1,12 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = () => {
+const Input = ({ secretWord }) => {
+  const [currentGuess, setCurrentGuess] = React.useState('');
+
   return (
-    <div>
+    <div data-test='component-app'>
       <form action=''>
-        <input type='text' data-test='input-box' />
-        <button type='submit' data-test='submit-button'></button>
+        <input
+          type='text'
+          data-test='input-box'
+          value={currentGuess}
+          onChange={event => setCurrentGuess(event.target.value)}
+        />
+        <button
+          type='submit'
+          data-test='submit-button'
+          onClick={evt => {
+            evt.preventDefault();
+            setCurrentGuess('');
+          }}
+        ></button>
       </form>
     </div>
   );

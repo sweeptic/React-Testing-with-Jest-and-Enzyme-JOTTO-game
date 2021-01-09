@@ -3,8 +3,8 @@ import { shallow } from 'enzyme';
 import Input from './Input';
 import { checkProps, findByTestAttr } from '../test/testUtils';
 
-const setup = () => {
-  return shallow(<Input />);
+const setup = (secretWord = 'party') => {
+  return shallow(<Input secretWord={secretWord} />);
 };
 
 test('Input renders without error ', () => {
@@ -19,12 +19,13 @@ test('propTypes - does not throw warning with expected props ', () => {
 });
 
 describe('state controlled input field', () => {
-  const wrapper = setup();
-  const mockSetSecretWord = jest.fn();
-  // mockSetSecretWord.mockClear();
+  let wrapper;
+  let mockSetCurrentGuess = jest.fn();
 
-  React.useState = jest.fn(() => {
-    ['', mockSetSecretWord];
+  beforeEach(() => {
+    mockSetCurrentGuess.mockClear();
+    React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
+    wrapper = setup();
   });
 
   test('state updates with value of input box upon change', () => {
@@ -32,13 +33,13 @@ describe('state controlled input field', () => {
     const mockEvent = { target: { value: 'train' } };
     inputBox.simulate('change', mockEvent);
 
-    expect(mockSetSecretWord).toHaveBeenCalledWith('train');
+    expect(mockSetCurrentGuess).toHaveBeenCalledWith('train');
   });
 
   test('field is cleared upon submit button click', () => {
     const submitButton = findByTestAttr(wrapper, 'submit-button');
-    submitButton.simulate('click', evt => evt.preventDefault());
+    submitButton.simulate('click', { preventDefault() {} });
 
-    expect(mockSetSecretWord).toHaveBeenCalledWith('');
+    expect(mockSetCurrentGuess).toHaveBeenCalledWith('');
   });
 });
