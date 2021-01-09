@@ -1,39 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 const Input = () => {
-  const [currentGuess, setCurrentGuess] = React.useState('');
-
-  return (
-    <div data-test='component-input'>
-      <form>
-        <input
-          type='text'
-          data-test='input-box'
-          value={currentGuess}
-          onChange={evt => {
-            setCurrentGuess(evt.target.value);
-          }}
-        />
-
-        <button
-          type='submit'
-          data-test='submit-button'
-          onClick={evt => {
-            evt.preventDefault();
-            setCurrentGuess('');
-          }}
-        >
-          Guess Word
-        </button>
-      </form>
-    </div>
-  );
+  return <div></div>;
 };
 
-//simple propTypes
-Input.propTypes = {
-  secretWord: PropTypes.string.isRequired,
-};
+//simple proptypes
+// Input.propTypes = {
+//   secretWord: PropTypes.string.isRequired,
+// };
+
+// //array of object proptypes
+// Input.propTypes = {
+//   Input: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       secretWord: PropTypes.string.isRequired,
+//       prop: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+// };
 
 export default Input;
