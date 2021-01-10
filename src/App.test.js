@@ -2,17 +2,17 @@ import React from 'react';
 import { mount } from 'enzyme';
 import App from './App';
 import { findByTestAttr } from '../test/testUtils';
-import hookActions, { getSecretWord } from './actions/hookActions';
+import hookActions from './actions/hookActions';
 
 const mockGetSecretWord = jest.fn();
 
-const setup = () => {
+const setup = (secretWord = 'party') => {
   mockGetSecretWord.mockClear();
-
   hookActions.getSecretWord = mockGetSecretWord;
 
-  // const mockUseReducer = jest.fn().mockReturnValue([{}, jest.fn()]);
-  // React.useReducer = mockUseReducer;
+  const mockUseReducer = jest.fn().mockReturnValue([{ secretWord }, jest.fn()]);
+  React.useReducer = mockUseReducer;
+
   return mount(<App />);
 };
 
@@ -29,7 +29,7 @@ describe('getSecretWord calls', () => {
   });
 
   test('secretWord does not update on App update', () => {
-    let wrapper = setup();
+    const wrapper = setup();
     mockGetSecretWord.mockClear();
     wrapper.setProps();
     expect(mockGetSecretWord).not.toHaveBeenCalled();
@@ -37,13 +37,38 @@ describe('getSecretWord calls', () => {
 });
 
 describe('secretWord is not null', () => {
-  test('renders app when secretWord is not null', () => {});
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup('party');
+  });
 
-  test('does not render spinner when secretWord is not null', () => {});
+  test('renders app when secretWord is not null', () => {
+    const component = findByTestAttr(wrapper, 'component-app');
+    // expect(component.length).toBe(1);
+    expect(component.exists()).toBe(true);
+  });
+
+  test('does not render spinner when secretWord is not null', () => {
+    const component = findByTestAttr(wrapper, 'spinner');
+    // expect(component.length).toBe(0);
+    expect(component.exists()).toBe(false);
+  });
 });
 
 describe('secretWord is  null', () => {
-  test('does not renders app when secretWord is not null', () => {});
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup(null);
+  });
 
-  test('render spinner when secretWord is not null', () => {});
+  test('does not renders app when secretWord is not null', () => {
+    const component = findByTestAttr(wrapper, 'component-app');
+    expect(component.exists()).toBe(false);
+  });
+
+  test('render spinner when secretWord is not null', () => {
+    const component = findByTestAttr(wrapper, 'spinner');
+    // expect(component.length).toBe(1);
+    expect(component.exists()).toBe(true);
+  });
 });
