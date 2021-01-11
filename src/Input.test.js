@@ -4,13 +4,12 @@ import { checkProps } from '../test/testUtils';
 import Input from './Input';
 import { findByTestAttr } from '../test/testUtils';
 
-const setup = ({ secretWord }) => {
-  secretWord = 'party';
+const setup = (secretWord = 'party') => {
   return shallow(<Input secretWord={secretWord} />);
 };
 
 test('Input renders without error ', () => {
-  const wrapper = setup({});
+  const wrapper = setup();
   const component = findByTestAttr(wrapper, 'component-app');
   expect(component.length).toBe(1);
 });
@@ -21,7 +20,26 @@ test('propTypes - does not throw warning with expected props ', () => {
 });
 
 describe('state controlled input field', () => {
-  test('state updates with value of input box upon change', () => {});
+  let wrapper;
+  let mockSetCurrentGuess = jest.fn();
 
-  test('field is cleared upon submit button click', () => {});
+  beforeEach(() => {
+    mockSetCurrentGuess.mockClear();
+    React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
+    wrapper = setup();
+  });
+
+  test('state updates with value of input box upon change', () => {
+    const component = findByTestAttr(wrapper, 'input-box');
+    const mockEvent = { target: { value: 'train' } };
+    component.simulate('change', mockEvent);
+
+    expect(mockSetCurrentGuess).toHaveBeenCalledWith('train');
+  });
+
+  test('field is cleared upon submit button click', () => {
+    const component = findByTestAttr(wrapper, 'submit-button');
+    component.simulate('click', { preventDefault() {} });
+    expect(mockSetCurrentGuess).toHaveBeenCalledWith('');
+  });
 });
