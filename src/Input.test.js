@@ -1,9 +1,19 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { checkProps } from '../test/testUtils';
 import Input from './Input';
+import { findByTestAttr } from '../test/testUtils';
 
-test('Input renders without error ', () => {});
+const setup = ({ secretWord }) => {
+  secretWord = 'party';
+  return shallow(<Input secretWord={secretWord} />);
+};
+
+test('Input renders without error ', () => {
+  const wrapper = setup({});
+  const component = findByTestAttr(wrapper, 'component-app');
+  expect(component.length).toBe(1);
+});
 
 test('propTypes - does not throw warning with expected props ', () => {
   const expectedProps = { secretWord: 'party' };
