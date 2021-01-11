@@ -1,11 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import App from './App';
+import { findByTestAttr } from '../test/testUtils';
+import { mount } from 'enzyme';
 
 const setup = () => {
-  return shallow(<App />);
+  return mount(<App />);
 };
 
-test('App renders without error ', () => {});
+test('App renders without error ', () => {
+  const wrapper = setup();
+  const component = findByTestAttr(wrapper, 'component-app');
+  expect(component.length).toBe(1);
+});
 
 describe('getSecretWord calls', () => {
   test('getSecretWord gets called on App mount', () => {});
