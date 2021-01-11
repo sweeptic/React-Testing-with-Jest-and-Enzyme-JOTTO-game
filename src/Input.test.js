@@ -26,6 +26,8 @@ describe('state controlled input field', () => {
   beforeEach(() => {
     mockSetCurrentGuess.mockClear();
     React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
+
+    // React.useState = jest.fn().mockReturnValue(['', mockSetCurrentGuess]);
     wrapper = setup();
   });
 
