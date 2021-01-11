@@ -1,3 +1,10 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
+const setup = () => {
+  return shallow(<App />);
+};
+
 test('App renders without error ', () => {});
 
 describe('getSecretWord calls', () => {
