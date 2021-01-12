@@ -19,9 +19,9 @@ test('App renders without error ', () => {
 describe('getSecretWord calls', () => {
   hookActions.getSecretWord = mockSetSecretWord;
 
-  let wrapper;
   beforeEach(() => {
-    wrapper = setup();
+    mockSetSecretWord.mockClear();
+    setup();
   });
 
   test('getSecretWord gets called on App mount', () => {
