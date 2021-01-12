@@ -2,6 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import App from './App';
 import { findByTestAttr } from '../test/testUtils';
+import hookActions from './actions/hookActions';
+
+const mockSetSecretWord = jest.fn();
 
 const setup = () => {
   return mount(<App />);
@@ -14,9 +17,23 @@ test('App renders without error ', () => {
 });
 
 describe('getSecretWord calls', () => {
-  test('getSecretWord gets called on App mount', () => {});
+  hookActions.getSecretWord = mockSetSecretWord;
 
-  test('secretWord does not update on App update', () => {});
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup();
+  });
+
+  test('getSecretWord gets called on App mount', () => {
+    expect(mockSetSecretWord).toHaveBeenCalled();
+  });
+
+  test('secretWord does not update on App update', () => {
+    let wrapper = setup();
+    mockSetSecretWord.mockClear();
+    wrapper.setProps();
+    expect(mockSetSecretWord).not.toHaveBeenCalled();
+  });
 });
 
 describe('secretWord is not null', () => {
