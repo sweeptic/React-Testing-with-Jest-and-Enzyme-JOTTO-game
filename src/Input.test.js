@@ -14,7 +14,7 @@ test('Input renders without error ', () => {
 });
 
 test('propTypes - does not throw warning with expected props ', () => {
-  const expectedProps = { secretWord: 1 };
+  const expectedProps = { secretWord: 'party' };
   checkProps(Input, expectedProps);
 });
 
