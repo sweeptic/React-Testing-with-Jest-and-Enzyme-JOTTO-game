@@ -31,7 +31,7 @@ describe('state controlled input field', () => {
   test('state updates with value of input box upon change', () => {
     const mockInputEvent = { target: { value: 'train' } };
     const component = findByTestAttr(wrapper, 'component-input');
-    component.simulate('change', component);
+    component.simulate('change', mockInputEvent);
     expect(mockSetGuessWord).toHaveBeenCalledWith('train');
   });
 
