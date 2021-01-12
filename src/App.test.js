@@ -1,4 +1,17 @@
-test('App renders without error ', () => {});
+import React from 'react';
+import { mount } from 'enzyme';
+import App from './App';
+import { findByTestAttr } from '../test/testUtils';
+
+const setup = () => {
+  return mount(<App />);
+};
+
+test('App renders without error ', () => {
+  const wrapper = setup();
+  const component = findByTestAttr(wrapper, 'component-');
+  expect(component.length).toBe(1);
+});
 
 describe('getSecretWord calls', () => {
   test('getSecretWord gets called on App mount', () => {});
