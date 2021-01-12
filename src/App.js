@@ -1,11 +1,11 @@
 import React from 'react';
-import hookActions, { getSecretWord } from './actions/hookActions';
+import hookActions from './actions/hookActions';
 import Input from './Input';
 
 function reducer(state, action) {
   switch (action.type) {
     case 'setSecretWord':
-      return { ...state, stateProp: action.payload };
+      return { ...state, secretWord: action.payload };
     default:
       throw new Error(`invalid action type ${action.type}`);
   }
