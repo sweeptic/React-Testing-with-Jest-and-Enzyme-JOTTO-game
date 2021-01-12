@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Input from './Input';
-import { findByTestAttr } from '../test/testUtils';
+import { checkProps, findByTestAttr } from '../test/testUtils';
 
 const setup = (secretWord = 'party') => {
   return shallow(<Input secretWord={secretWord} />);
@@ -13,7 +13,10 @@ test('Input renders without error ', () => {
   expect(component.length).toBe(1);
 });
 
-test('propTypes - does not throw warning with expected props ', () => {});
+test('propTypes - does not throw warning with expected props ', () => {
+  const expectedProps = { secretWord: 1 };
+  checkProps(Input, expectedProps);
+});
 
 describe('state controlled input field', () => {
   test('state updates with value of input box upon change', () => {});
