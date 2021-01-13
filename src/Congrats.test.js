@@ -17,11 +17,6 @@ const setup = (props = {}) => {
   return shallow(<Congrats {...setupProps} />);
 };
 
-describe('language picker', () => {
-  test('correctly renders congrats string in English by default', () => {});
-  test('correctly renders congrats string in emoji', () => {});
-});
-
 test('renders without error', () => {
   const wrapper = setup();
   const component = findByTestAttr(wrapper, 'component-congrats');
@@ -40,4 +35,9 @@ test('renders non-empty congrats message when `success` prop is true', () => {
 test('does not throw warning with expected props', () => {
   const expectedProps = { success: false };
   checkProps(Congrats, expectedProps);
+});
+
+describe('language picker', () => {
+  test('correctly renders congrats string in English by default', () => {});
+  test('correctly renders congrats string in emoji', () => {});
 });

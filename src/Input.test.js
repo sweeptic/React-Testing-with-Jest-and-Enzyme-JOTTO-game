@@ -43,6 +43,6 @@ describe('state controlled input field', () => {
 });
 
 describe('languagePicker', () => {
-  test('correctly renders submit string in english', () => {});
+  test('correctly renders submit string in English by default', () => {});
   test('correctly renders congrats string in emoji', () => {});
 });
