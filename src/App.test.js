@@ -7,9 +7,7 @@ import hookActions from './actions/hookActions';
 const mockSetSecretWord = jest.fn();
 
 const setup = ({ secretWord = 'party' }) => {
-  const mockUseReducer = jest
-    .fn()
-    .mockReturnValue([{ secretWord, language: 'en' }, jest.fn()]);
+  const mockUseReducer = jest.fn().mockReturnValue([{ secretWord }, jest.fn()]);
 
   React.useReducer = mockUseReducer;
 

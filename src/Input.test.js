@@ -1,37 +1,14 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import Input from './Input';
 import { checkProps, findByTestAttr } from '../test/testUtils';
-import languageContext from './contexts/languageContext';
 
-const setup = ({ secretWord, language }) => {
-  language = language || 'en';
-  secretWord = secretWord || 'party';
-
-  return mount(
-    <languageContext.Provider value={language}>
-      <Input secretWord={secretWord} />
-    </languageContext.Provider>
-  );
-
-  // shallow: only top level component and input is a  placeholder
+const setup = (secretWord = 'party') => {
+  return shallow(<Input secretWord={secretWord} />);
 };
 
-describe('languagePicker', () => {
-  test('correctly renders submit string in english', () => {
-    const wrapper = setup({ language: 'en' });
-    const submitButton = findByTestAttr(wrapper, 'component-button');
-    expect(submitButton.text()).toBe('Submit');
-  });
-  test('correctly renders congrats string in emoji', () => {
-    const wrapper = setup({ language: 'emoji' });
-    const submitButton = findByTestAttr(wrapper, 'component-button');
-    expect(submitButton.text()).toBe('🚀');
-  });
-});
-
 test('Input renders without error ', () => {
-  const wrapper = setup({});
+  const wrapper = setup();
   const component = findByTestAttr(wrapper, 'component-app');
   expect(component.length).toBe(1);
 });
@@ -48,7 +25,7 @@ describe('state controlled input field', () => {
   beforeEach(() => {
     mockSetGuessWord.mockClear();
     React.useState = jest.fn().mockReturnValue(['', mockSetGuessWord]);
-    wrapper = setup({});
+    wrapper = setup();
   });
 
   test('state updates with value of input box upon change', () => {
@@ -63,4 +40,9 @@ describe('state controlled input field', () => {
     component.simulate('click', { preventDefault() {} });
     expect(mockSetGuessWord).toHaveBeenCalledWith('');
   });
+});
+
+describe('languagePicker', () => {
+  test('correctly renders submit string in english', () => {});
+  test('correctly renders congrats string in emoji', () => {});
 });
