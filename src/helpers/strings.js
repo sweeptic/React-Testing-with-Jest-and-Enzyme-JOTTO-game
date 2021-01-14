@@ -18,11 +18,3 @@ const languageStrings = {
     matchingLettersColumnHeader: '✅',
   },
 };
-
-const getStringByLanguage = (
-  languageCode,
-  wordKey,
-  strings = languageStrings
-) => {};
-
-export default { getStringByLanguage };
