@@ -18,3 +18,19 @@ const languageStrings = {
     matchingLettersColumnHeader: '✅',
   },
 };
+
+const getStringByLanguage = (
+  languageCode,
+  stringKey,
+  strings = languageStrings
+) => {
+  if (!strings[languageCode] || !strings[languageCode][stringKey]) {
+    console.warn(`Could not get string [${stringKey}] for [${languageCode}]`);
+
+    return strings['en'][stringKey];
+  } else {
+    return strings[languageCode][stringKey];
+  }
+};
+
+export default { getStringByLanguage };
