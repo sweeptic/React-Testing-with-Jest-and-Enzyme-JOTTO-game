@@ -1,18 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const languages = [
-  { code: 'en', symbol: '🇺🇸' },
-  { code: 'emoji', symbol: '😊' },
-];
+const LanguagePicker = ({ setLanguage }) => {
+  const languages = [
+    { code: 'en', symbol: '🇺🇸' },
+    { code: 'emoji', symbol: '😊' },
+  ];
 
-const LanguagePicker = () => {
-  return <div></div>;
+  const languageIcons = languages.map(lang => {
+    return (
+      <span
+        data-test='component-language-icons'
+        key={lang.code}
+        onClick={() => setLanguage(lang.code)}
+      >
+        {lang.symbol}
+      </span>
+    );
+  });
+
+  return <div data-test='component-language-picker'>{languageIcons}</div>;
 };
 
 //simple propTypes
 LanguagePicker.propTypes = {
-  language: PropTypes.func.isRequired,
+  setLanguage: PropTypes.func.isRequired,
 };
 
 export default LanguagePicker;

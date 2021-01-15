@@ -6,7 +6,7 @@ import { checkProps, findByTestAttr } from '../test/testUtils';
 const mockLanguage = jest.fn();
 
 const setup = () => {
-  return shallow(<LanguagePicker language={mockLanguage} />);
+  return shallow(<LanguagePicker setLanguage={mockLanguage} />);
 };
 
 test('LanguagePicker renders without error ', () => {
@@ -16,8 +16,8 @@ test('LanguagePicker renders without error ', () => {
 });
 
 test('does not throw warning with expected props', () => {
-  //   const expectedProps = { language: jest.fn() }; //will pass test
-  const expectedProps = { language: 1 }; //for red-green testing
+  const expectedProps = { setLanguage: jest.fn() }; //will pass test
+  //   const expectedProps = { language: 1 }; //for red-green testing
   checkProps(LanguagePicker, expectedProps);
 });
 
@@ -31,5 +31,5 @@ test('calls setLanguage prop upon click', () => {
   const wrapper = setup();
   const component = findByTestAttr(wrapper, 'component-language-icons').first();
   component.simulate('click');
-  expect(mockLanguage).toHaveBeenCalledWith();
+  expect(mockLanguage).toHaveBeenCalled();
 });
