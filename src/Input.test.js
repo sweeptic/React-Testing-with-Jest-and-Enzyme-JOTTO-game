@@ -1,14 +1,37 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Input from './Input';
 import { checkProps, findByTestAttr } from '../test/testUtils';
+import languageContext from './contexts/languageContext';
 
-const setup = (secretWord = 'party') => {
-  return shallow(<Input secretWord={secretWord} />);
+const setup = ({ secretWord, language }) => {
+  secretWord = secretWord || 'party';
+  language = language || 'en';
+
+  return mount(
+    <languageContext.Provider value={language}>
+      <Input secretWord={secretWord} />
+    </languageContext.Provider>
+  );
 };
 
+describe('languagePicker', () => {
+  test('correctly renders submit string in English by default', () => {
+    const wrapper = setup({ language: 'en' });
+    const component = findByTestAttr(wrapper, 'component-button');
+    expect(component.text()).toBe('Submit');
+  });
+  test('correctly renders submit string in emoji', () => {
+    //???
+
+    const wrapper = setup({ language: 'emoji' });
+    const component = findByTestAttr(wrapper, 'component-button');
+    expect(component.text()).toBe('🚀');
+  });
+});
+
 test('Input renders without error ', () => {
-  const wrapper = setup();
+  const wrapper = setup({});
   const component = findByTestAttr(wrapper, 'component-app');
   expect(component.length).toBe(1);
 });
@@ -25,7 +48,7 @@ describe('state controlled input field', () => {
   beforeEach(() => {
     mockSetGuessWord.mockClear();
     React.useState = jest.fn().mockReturnValue(['', mockSetGuessWord]);
-    wrapper = setup();
+    wrapper = setup({});
   });
 
   test('state updates with value of input box upon change', () => {
@@ -40,9 +63,4 @@ describe('state controlled input field', () => {
     component.simulate('click', { preventDefault() {} });
     expect(mockSetGuessWord).toHaveBeenCalledWith('');
   });
-});
-
-describe('languagePicker', () => {
-  test('correctly renders submit string in English by default', () => {});
-  test('correctly renders congrats string in emoji', () => {});
 });
