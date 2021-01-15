@@ -20,6 +20,8 @@ const setup = (props = {}) => {
 
 describe('languagePicker', () => {
   test('correctly renders guess instructions string in English by default', () => {
+    // const mockUseContext = jest.fn().mockReturnValue('en');
+    // React.useContext = mockUseContext;
     let wrapper = setup({ guessedWords: [] });
     const instructions = findByTestAttr(wrapper, 'guess-instructions');
     expect(instructions.text()).toBe('Try to guess the secret word!');
