@@ -23,6 +23,13 @@ const getStringByLanguage = (
   languageCode,
   stringKey,
   strings = languageString
-) => {};
+) => {
+  if (!strings[languageCode] || !strings[languageCode][stringKey]) {
+    console.warn(`Could not get string [${stringKey}] for [${languageCode}]`);
+    return strings['en'][stringKey];
+  } else {
+    return strings[languageCode][stringKey];
+  }
+};
 
 export default { getStringByLanguage };

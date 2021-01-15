@@ -26,27 +26,31 @@ afterEach(() => {
 //);
 
 describe('language string testing', () => {
-  const result = getStringByLanguage('en', 'submit', strings);
-  expect(mockWarn).not.toHaveBeenCalled();
-  expect(result).toBe('submit');
-});
+  test('returns the correct submit string for english', () => {
+    const result = getStringByLanguage('en', 'submit', strings);
+    expect(mockWarn).not.toHaveBeenCalled();
+    expect(result).toBe('submit');
+  });
 
-test('returns the correct submit string for emoji', () => {
-  const result = getStringByLanguage('emoji', 'submit', strings);
-  expect(mockWarn).not.toHaveBeenCalled();
-  expect(result).toBe('🚀');
-});
-test('returns english submit string when language does not exist', () => {
-  const result = getStringByLanguage('notALanguage', 'submit', strings);
-  expect(mockWarn).toHaveBeenCalledWith(
-    'Could not get string [submit] for [notALanguage]'
-  );
-  expect(result).toBe('submit');
-});
-test('returns english submit string when submit key does not exist for language', () => {
-  const result = getStringByLanguage('mermish', 'submit', strings);
-  expect(mockWarn).toHaveBeenCalledWith(
-    'Could not get string [submit] for [mermish]'
-  );
-  expect(result).toBe('submit');
+  test('returns the correct submit string for emoji', () => {
+    const result = getStringByLanguage('emoji', 'submit', strings);
+    expect(mockWarn).not.toHaveBeenCalled();
+    expect(result).toBe('🚀');
+  });
+
+  test('returns english submit string when language does not exist', () => {
+    const result = getStringByLanguage('notALanguage', 'submit', strings);
+    expect(mockWarn).toHaveBeenCalledWith(
+      'Could not get string [submit] for [notALanguage]'
+    );
+    expect(result).toBe('submit');
+  });
+
+  test('returns english submit string when submit key does not exist for language', () => {
+    const result = getStringByLanguage('mermish', 'submit', strings);
+    expect(mockWarn).toHaveBeenCalledWith(
+      'Could not get string [submit] for [mermish]'
+    );
+    expect(result).toBe('submit');
+  });
 });
