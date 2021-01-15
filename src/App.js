@@ -26,7 +26,7 @@ const App = () => {
     dispatch({ type: 'setSecretWord', payload: secretWord });
   };
 
-  const setLanguage = languageCode => {
+  const setLanguage = language => {
     dispatch({ type: 'setLanguage', payload: language });
   };
 
