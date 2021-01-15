@@ -22,8 +22,6 @@ describe('languagePicker', () => {
     expect(component.text()).toBe('Submit');
   });
   test('correctly renders submit string in emoji', () => {
-    //???
-
     const wrapper = setup({ language: 'emoji' });
     const component = findByTestAttr(wrapper, 'component-button');
     expect(component.text()).toBe('🚀');

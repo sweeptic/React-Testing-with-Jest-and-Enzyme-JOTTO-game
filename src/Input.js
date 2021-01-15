@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import stringsModule from './helpers/strings';
+import languageContext from './contexts/languageContext';
 
 const Input = () => {
   const [guessWord, setGuessWord] = React.useState('');
+  const language = React.useContext(languageContext);
 
   return (
     <div data-test='component-app'>
@@ -22,7 +25,9 @@ const Input = () => {
             evt.preventDefault();
             setGuessWord('');
           }}
-        ></button>
+        >
+          {stringsModule.getStringByLanguage(language, 'submit')}
+        </button>
       </form>
     </div>
   );
