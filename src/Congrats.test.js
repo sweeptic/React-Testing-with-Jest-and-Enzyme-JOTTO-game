@@ -35,12 +35,12 @@ describe('language picker', () => {
   test('correctly renders congrats string in English by default', () => {
     const wrapper = setup({ success: true });
     const component = findByTestAttr(wrapper, 'congrats-message');
-    expect(component.text).toBe('Congratulations! You guessed the word!');
+    expect(component.text()).toBe('Congratulations! You guessed the word!');
   });
   test('correctly renders congrats string in emoji', () => {
     const wrapper = setup({ success: true, languageCode: 'emoji' });
     const component = findByTestAttr(wrapper, 'congrats-message');
-    expect(component.text).toBe('🎯🎉');
+    expect(component.text()).toBe('🎯🎉');
   });
 });
 

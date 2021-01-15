@@ -1,4 +1,4 @@
-const languageStrings = {
+const languageString = {
   en: {
     congrats: 'Congratulations! You guessed the word!',
     submit: 'Submit',
