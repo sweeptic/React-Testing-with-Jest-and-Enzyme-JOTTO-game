@@ -3,6 +3,10 @@ import hookActions, { getSecretWord } from './actions/hookActions';
 import languageContext from './contexts/languageContext';
 import Input from './Input';
 import LanguagePicker from './LanguagePicker';
+import successContext from './contexts/successContext';
+import Congrats from './Congrats';
+import GuessedWords from './GuessedWords';
+import guessedWordsContext from './contexts/guessedWordsContext';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -42,7 +46,13 @@ const App = () => {
     <div data-test='component-app'>
       <languageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
-        <Input secretWord={state.secretWord} />
+        <guessedWordsContext.GuessedWordsProvider>
+          <successContext.SuccessProvider>
+            <Congrats />
+            <Input secretWord={state.secretWord} />
+          </successContext.SuccessProvider>
+          <GuessedWords />
+        </guessedWordsContext.GuessedWordsProvider>
       </languageContext.Provider>
     </div>
   );
