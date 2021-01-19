@@ -1,45 +1,67 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import stringsModule from './helpers/strings';
-import languageContext from './contexts/languageContext';
-import successContext from './contexts/successContext';
 
-const Input = () => {
+import guessedWordsContext from './contexts/guessedWordsContext';
+import successContext from './contexts/successContext';
+import languageContext from './contexts/languageContext';
+import stringsModule from './helpers/strings';
+import { getLetterMatchCount } from './helpers';
+
+function Input({ secretWord }) {
   const language = React.useContext(languageContext);
   const [success, setSuccess] = successContext.useSuccess();
-  const [guessWord, setGuessWord] = React.useState('');
+  const [guessedWords, setGuessedWords] = guessedWordsContext.useGuessedWords();
+  const [currentGuess, setCurrentGuess] = React.useState('');
 
   if (success) {
     return null;
   }
 
   return (
-    <div data-test='component-app'>
-      <form action=''>
+    <div data-test='component-input'>
+      <form className='form-inline'>
         <input
-          type='text'
           data-test='input-box'
-          value={guessWord}
-          onChange={evt => {
-            setGuessWord(evt.target.value);
-          }}
+          className='mb-2 mx-sm-3'
+          type='text'
+          placeholder={stringsModule.getStringByLanguage(
+            language,
+            'guessInputPlaceholder'
+          )}
+          value={currentGuess}
+          onChange={event => setCurrentGuess(event.target.value)}
         />
-
         <button
           data-test='submit-button'
           onClick={evt => {
             evt.preventDefault();
-            setGuessWord('');
+            // update guessedWords
+            const letterMatchCount = getLetterMatchCount(
+              currentGuess,
+              secretWord
+            );
+            const newGuessedWords = [
+              ...guessedWords,
+              { guessedWord: currentGuess, letterMatchCount },
+            ];
+            setGuessedWords(newGuessedWords);
+
+            // check against secretWord and update success if needed
+            if (currentGuess === secretWord) {
+              setSuccess(true);
+            }
+            // clear input box
+            setCurrentGuess('');
           }}
+          className='btn btn-primary mb-2'
         >
           {stringsModule.getStringByLanguage(language, 'submit')}
         </button>
       </form>
     </div>
   );
-};
+}
 
-//simple proptypes
 Input.propTypes = {
   secretWord: PropTypes.string.isRequired,
 };
