@@ -7,7 +7,7 @@ import Input from './Input';
 import guessedWordsContext from './contexts/guessedWordsContext';
 import GuessedWords from './GuessedWords';
 
-function setup(guessedWords = [], secretWord = 'party') {
+function setup(guessedWordsStrings = [], secretWord = 'party') {
   const wrapper = mount(
     <guessedWordsContext.GuessedWordsProvider>
       <successContext.SuccessProvider>
@@ -20,7 +20,7 @@ function setup(guessedWords = [], secretWord = 'party') {
   const inputBox = findByTestAttr(wrapper, 'input-box');
   const submitButton = findByTestAttr(wrapper, 'submit-button');
 
-  guessedWords.map(word => {
+  guessedWordsStrings.map(word => {
     const mockEvent = { target: { value: word } };
     inputBox.simulate('change', mockEvent);
     submitButton.simulate('click');
@@ -35,30 +35,40 @@ describe('test word guesses', () => {
   let submitButton;
 
   beforeEach(() => {
-    [wrapper, inputBox, submitButton] = setup('party');
+    [wrapper, inputBox, submitButton] = setup(['agile'], 'party');
   });
 
-  describe('correct guess', () => {
-    beforeEach(() => {
-      const mockEvent = { target: { value: 'party' } };
-      inputBox.simulate('change', mockEvent);
-      submitButton.simulate('click');
-    });
-    test('Input component contains no children', () => {
-      const inputComponent = findByTestAttr(wrapper, 'component-input');
-      expect(inputComponent.children().length).toBe(0);
-    });
-  });
-
-  describe('incorrect guess', () => {
-    beforeEach(() => {
-      const mockEvent = { target: { value: 'train' } };
-      inputBox.simulate('change', mockEvent);
-      submitButton.simulate('click');
+  describe('non-empty guessedWords', () => {
+    describe('correct guess', () => {
+      beforeEach(() => {
+        const mockEvent = { target: { value: 'party' } };
+        inputBox.simulate('change', mockEvent);
+        submitButton.simulate('click');
+      });
+      test('Input component contains no children', () => {
+        const inputComponent = findByTestAttr(wrapper, 'component-input');
+        expect(inputComponent.children().length).toBe(0);
+      });
+      test('GuessedWords table row count reflects updated guess', () => {
+        const guessedWordsTableRows = findByTestAttr(wrapper, 'guessed-word');
+        expect(guessedWordsTableRows.length).toBe(2);
+      });
     });
 
-    test('Input box remains', () => {
-      expect(inputBox.exists()).toBe(true);
+    describe('incorrect guess', () => {
+      beforeEach(() => {
+        const mockEvent = { target: { value: 'train' } };
+        inputBox.simulate('change', mockEvent);
+        submitButton.simulate('click');
+      });
+
+      test('Input box remains', () => {
+        expect(inputBox.exists()).toBe(true);
+      });
+      test('GuessedWords table row count reflects updated guess', () => {
+        const guessedWordsTableRows = findByTestAttr(wrapper, 'guessed-word');
+        expect(guessedWordsTableRows.length).toBe(2);
+      });
     });
   });
 });
