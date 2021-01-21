@@ -12,8 +12,8 @@ function setup(secretWord = 'party') {
     </successContext.SuccessProvider>
   );
 
-  const inputBox = findByTestAttr(wrapper, 'input-box');
-  const submitButton = findByTestAttr(wrapper, 'submit-button');
+  const inputBox = findByTestAttr(wrapper, 'component-input');
+  const submitButton = findByTestAttr(wrapper, 'component-button');
 
   return [wrapper, inputBox, submitButton];
 }
@@ -25,5 +25,21 @@ describe('test word guesses', () => {
 
   beforeEach(() => {
     [wrapper, inputBox, submitButton] = setup('party');
+  });
+
+  describe('correct guess', () => {
+    beforeEach(() => {
+      const mockEvent = { target: { value: 'party' } };
+      inputBox.simulate('change', mockEvent);
+      submitButton.simulate('click');
+    });
+  });
+
+  describe('incorrect guess', () => {
+    beforeEach(() => {
+      const mockEvent = { target: { value: 'train' } };
+      inputBox.simulate('change', mockEvent);
+      submitButton.simulate('click');
+    });
   });
 });
