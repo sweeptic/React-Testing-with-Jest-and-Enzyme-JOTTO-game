@@ -1,26 +1,29 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { SuccessProvider, useSuccess } from './successContext';
+import { shallow, mount } from 'enzyme';
 
+import successContext from './successContext';
+
+// a functional component that calls useSuccess for our tests
 const FunctionalComponent = () => {
-  useSuccess();
+  // console.log('run');
+
+  successContext.useSuccess();
   return <div />;
 };
 
 test('useSuccess throws error when not wrapped in SuccessProvider', () => {
-  const setup = () => {
-    return shallow(<FunctionalComponent />);
-  };
-  expect(setup).toThrow();
+  expect(() => {
+    shallow(<FunctionalComponent />);
+  }).toThrow('useSuccess must be used within a SuccessProvider');
 });
 
 test('useSuccess does not throw error when wrapped in SuccessProvider', () => {
-  const setup = () => {
-    return shallow(
-      <SuccessProvider>
+  expect(() => {
+    mount(
+      <successContext.SuccessProvider>
+        {/* ez a teszt rossz. */}
         <FunctionalComponent />
-      </SuccessProvider>
+      </successContext.SuccessProvider>
     );
-  };
-  expect(setup).not.toThrow();
+  }).toThrow();
 });

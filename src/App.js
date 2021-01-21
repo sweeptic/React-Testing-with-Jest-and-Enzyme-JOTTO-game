@@ -6,7 +6,10 @@ import LanguagePicker from './LanguagePicker';
 
 import Congrats from './Congrats';
 import successContext from './contexts/successContext';
-import { useGuessedWords } from './contexts/guessedWordsContext';
+import guessedWordsContext, {
+  useGuessedWords,
+} from './contexts/guessedWordsContext';
+import GuessedWords from './GuessedWords';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -46,11 +49,13 @@ const App = () => {
     <div data-test='component-app'>
       <languageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
-        <successContext.SuccessProvider>
-          <Congrats />
-          <Input secretWord={state.secretWord} />
-        </successContext.SuccessProvider>
-        {/*GuessedWords*/}
+        <guessedWordsContext.GuessedWordsProvider>
+          <successContext.SuccessProvider>
+            <Congrats />
+            <Input secretWord={state.secretWord} />
+          </successContext.SuccessProvider>
+          <GuessedWords />
+        </guessedWordsContext.GuessedWordsProvider>
       </languageContext.Provider>
     </div>
   );

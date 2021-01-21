@@ -11,9 +11,11 @@ export function useGuessedWords() {
 }
 
 export function GuessedWordsProvider(props) {
-  const [state, setState] = React.useState(false);
+  const [guessedWords, setGuessedWords] = React.useState([]);
 
-  const value = React.useMemo(() => [state, setState], [state]);
+  const value = React.useMemo(() => [guessedWords, setGuessedWords], [
+    guessedWords,
+  ]);
 
   return <guessedWordsContext.Provider value={value} {...props} />;
 }
