@@ -21,7 +21,7 @@ const setup = ({ secretWord, language, success }) => {
 
 test('Input renders without error ', () => {
   const wrapper = setup({});
-  const component = findByTestAttr(wrapper, 'component-app');
+  const component = findByTestAttr(wrapper, 'component-input');
   expect(component.length).toBe(1);
 });
 
@@ -42,13 +42,13 @@ describe('state controlled input field', () => {
 
   test('state updates with value of input box upon change', () => {
     const mockInputEvent = { target: { value: 'train' } };
-    const component = findByTestAttr(wrapper, 'component-input');
+    const component = findByTestAttr(wrapper, 'input-box');
     component.simulate('change', mockInputEvent);
     expect(mockSetGuessWord).toHaveBeenCalledWith('train');
   });
 
   test('field is cleared upon submit button click', () => {
-    const component = findByTestAttr(wrapper, 'component-button');
+    const component = findByTestAttr(wrapper, 'submit-button');
     component.simulate('click', { preventDefault() {} });
     expect(mockSetGuessWord).toHaveBeenCalledWith('');
   });
@@ -57,12 +57,12 @@ describe('state controlled input field', () => {
 describe('languagePicker', () => {
   test('correctly renders submit string in English by default', () => {
     const wrapper = setup({ language: 'en' });
-    const component = findByTestAttr(wrapper, 'component-button');
+    const component = findByTestAttr(wrapper, 'submit-button');
     expect(component.text()).toBe('Submit');
   });
   test('correctly renders submit string in emoji', () => {
     const wrapper = setup({ language: 'emoji' });
-    const component = findByTestAttr(wrapper, 'component-button');
+    const component = findByTestAttr(wrapper, 'submit-button');
     expect(component.text()).toBe('🚀');
   });
 });

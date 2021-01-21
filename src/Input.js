@@ -4,21 +4,21 @@ import stringsModule from './helpers/strings';
 import languageContext from './contexts/languageContext';
 import successContext from './contexts/successContext';
 
-const Input = () => {
-  const [guessWord, setGuessWord] = React.useState('');
+const Input = ({ secretWord }) => {
   const language = React.useContext(languageContext);
   const [success, setSuccess] = successContext.useSuccess();
+  const [guessWord, setGuessWord] = React.useState('');
 
   if (success) {
     return null;
   }
 
   return (
-    <div data-test='component-app'>
+    <div data-test='component-input'>
       <form action=''>
         <input
           type='text'
-          data-test='component-input'
+          data-test='input-box'
           value={guessWord}
           onChange={evt => {
             setGuessWord(evt.target.value);
@@ -26,9 +26,12 @@ const Input = () => {
         />
 
         <button
-          data-test='component-button'
+          data-test='submit-button'
           onClick={evt => {
             evt.preventDefault();
+            if (guessWord === secretWord) {
+              setSuccess(true);
+            }
             setGuessWord('');
           }}
         >

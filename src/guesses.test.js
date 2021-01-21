@@ -12,8 +12,8 @@ function setup(secretWord = 'party') {
     </successContext.SuccessProvider>
   );
 
-  const inputBox = findByTestAttr(wrapper, 'component-input');
-  const submitButton = findByTestAttr(wrapper, 'component-button');
+  const inputBox = findByTestAttr(wrapper, 'input-box');
+  const submitButton = findByTestAttr(wrapper, 'submit-button');
 
   return [wrapper, inputBox, submitButton];
 }
@@ -33,6 +33,10 @@ describe('test word guesses', () => {
       inputBox.simulate('change', mockEvent);
       submitButton.simulate('click');
     });
+    test('Input component contains no children', () => {
+      const inputComponent = findByTestAttr(wrapper, 'component-input');
+      expect(inputComponent.children().length).toBe(0);
+    });
   });
 
   describe('incorrect guess', () => {
@@ -40,6 +44,10 @@ describe('test word guesses', () => {
       const mockEvent = { target: { value: 'train' } };
       inputBox.simulate('change', mockEvent);
       submitButton.simulate('click');
+    });
+
+    test('Input box remains', () => {
+      expect(inputBox.exists()).toBe(true);
     });
   });
 });
