@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import stringsModule from './helpers/strings';
+
 import languageContext from './contexts/languageContext';
+import successContext from './contexts/successContext';
 
 /**
  * Functional react component for congratulatory message.
@@ -10,7 +12,7 @@ import languageContext from './contexts/languageContext';
  */
 const Congrats = () => {
   const { getStringByLanguage } = stringsModule;
-  const success = null;
+  const [success] = successContext.useSuccess();
   const languageCode = React.useContext(languageContext);
 
   if (success) {
