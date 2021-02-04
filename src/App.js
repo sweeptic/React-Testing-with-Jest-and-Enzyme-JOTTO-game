@@ -1,64 +1,40 @@
-import React from 'react';
-import hookActions from './actions/hookActions';
-import languageContext from './contexts/languageContext';
-import Input from './Input';
-import LanguagePicker from './LanguagePicker';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './App.css';
 
-import Congrats from './Congrats';
-import successContext from './contexts/successContext';
-import guessedWordsContext, {
-  useGuessedWords,
-} from './contexts/guessedWordsContext';
 import GuessedWords from './GuessedWords';
+import Congrats from './Congrats';
+import Input from './Input';
+import { getSecretWord } from './actions';
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'setSecretWord':
-      return { ...state, secretWord: action.payload };
-    case 'setLanguage':
-      return { ...state, language: action.payload };
-    default:
-      throw new Error(`invalid action type ${action.type}`);
+// App test: redux (state & action creator). Connected-component and 'component did mount' test. Unconnected-component
+
+export class UnconnectedApp extends Component {
+  /**
+   * @method componentDidMount
+   * @returns {undefined}
+   */
+  componentDidMount() {
+    // get the secret word
+    this.props.getSecretWord();
+  }
+
+  render() {
+    return (
+      <div className='container'>
+        <h1>Jotto</h1>
+        <Congrats success={this.props.success} />
+        {/*Input: get 'success' state, 'guessWord' action-creator from redux */}
+        <Input />
+        <GuessedWords guessedWords={this.props.guessedWords} />
+      </div>
+    );
   }
 }
 
-const App = () => {
-  //put outside here
-  const [state, dispatch] = React.useReducer(reducer, {
-    secretWord: null,
-    language: 'en',
-  });
-
-  const setSecretWord = secretWord => {
-    dispatch({ type: 'setSecretWord', payload: secretWord });
-  };
-
-  const setLanguage = language => {
-    dispatch({ type: 'setLanguage', payload: language });
-  };
-
-  React.useEffect(() => {
-    hookActions.getSecretWord(setSecretWord);
-  }, []);
-
-  if (!state.secretWord) {
-    return <div data-test='component-spinner'></div>;
-  }
-
-  return (
-    <div data-test='component-app'>
-      <languageContext.Provider value={state.language}>
-        <LanguagePicker setLanguage={setLanguage} />
-        <guessedWordsContext.GuessedWordsProvider>
-          <successContext.SuccessProvider>
-            <Congrats />
-            <Input secretWord={state.secretWord} />
-          </successContext.SuccessProvider>
-          <GuessedWords />
-        </guessedWordsContext.GuessedWordsProvider>
-      </languageContext.Provider>
-    </div>
-  );
+const mapStateToProps = state => {
+  const { success, guessedWords, secretWord } = state;
+  return { success, guessedWords, secretWord };
 };
 
-export default App;
+export default connect(mapStateToProps, { getSecretWord })(UnconnectedApp);
