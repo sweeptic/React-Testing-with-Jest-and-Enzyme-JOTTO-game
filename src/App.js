@@ -7,7 +7,7 @@ import Congrats from './Congrats';
 import Input from './Input';
 import { getSecretWord } from './actions';
 
-// App test: redux (state & action creator). Connected-component and 'component did mount' test. Unconnected-component
+// App tests: redux (state & action creator). Connected-component and 'component did mount' test. Unconnected-component
 
 export class UnconnectedApp extends Component {
   /**
@@ -23,8 +23,11 @@ export class UnconnectedApp extends Component {
     return (
       <div className='container'>
         <h1>Jotto</h1>
+        {/*Congrats tests: render, show/hide text, propTypes test */}
         <Congrats success={this.props.success} />
         {/*Input: get 'success' state, 'guessWord' action-creator from redux */}
+        {/*Input tests: render, show/hide text, access to redux props. Connected-components*/}
+        {/*Input tests: redux action creator function mock test. Unconnected-components*/}
         <Input />
         <GuessedWords guessedWords={this.props.guessedWords} />
       </div>

@@ -29,16 +29,16 @@ describe('render', () => {
       const component = findByTestAttr(wrapper, 'component-input');
       expect(component.length).toBe(1);
     });
-    // test('renders input box', () => {
-    //   const inputBox = findByTestAttr(wrapper, 'input-box');
-    //   expect(inputBox.length).toBe(1);
-    // });
-    // test('renders submit button', () => {
-    //   const submitButton = findByTestAttr(wrapper, 'submit-button');
-    //   expect(submitButton.length).toBe(1);
-    // });
+    test('renders input box', () => {
+      const inputBox = findByTestAttr(wrapper, 'input-box');
+      expect(inputBox.length).toBe(1);
+    });
+    test('renders submit button', () => {
+      const submitButton = findByTestAttr(wrapper, 'submit-button');
+      expect(submitButton.length).toBe(1);
+    });
   });
-  /*
+
   describe('word has been guessed', () => {
     let wrapper;
     beforeEach(() => {
@@ -59,9 +59,7 @@ describe('render', () => {
     });
   });
 });
-*/
 
-  /*
 describe('redux props', () => {
   test('has success piece of state as prop', () => {
     const success = true;
@@ -105,5 +103,4 @@ describe('`guessWord` action creator', () => {
   test('input box clears on submit', () => {
     expect(wrapper.state('currentGuess')).toBe('');
   });
-  */
 });
