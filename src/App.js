@@ -29,11 +29,14 @@ export class UnconnectedApp extends Component {
         {/*Input tests: render, show/hide text, access to redux props. Connected-components*/}
         {/*Input tests: redux action creator function mock test. Unconnected-components*/}
         <Input />
+        {/*GuessedWords tests: render, show/hide text, propTypes test */}
         <GuessedWords guessedWords={this.props.guessedWords} />
       </div>
     );
   }
 }
+
+// + getLetterMatchCount function tests.
 
 const mapStateToProps = state => {
   const { success, guessedWords, secretWord } = state;
