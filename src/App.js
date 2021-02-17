@@ -7,7 +7,8 @@ import Congrats from './Congrats';
 import Input from './Input';
 import { getSecretWord } from './actions';
 
-// App tests: redux (state & action creator). Connected-component and 'component did mount' test. Unconnected-component
+// App tests: redux (state & action creator)- Connected-component
+// 'component did mount' test-  Unconnected-component
 
 export class UnconnectedApp extends Component {
   /**
@@ -23,13 +24,13 @@ export class UnconnectedApp extends Component {
     return (
       <div className='container'>
         <h1>Jotto</h1>
-        {/*Congrats tests: render, show/hide text, propTypes test */}
+        {/*Congrats tests: render, show/hide text, propTypes test. Unconnected-components */}
         <Congrats success={this.props.success} />
         {/*Input: get 'success' state, 'guessWord' action-creator from redux */}
         {/*Input tests: render, show/hide text, access to redux props. Connected-components*/}
         {/*Input tests: redux action creator function mock test. Unconnected-components*/}
         <Input />
-        {/*GuessedWords tests: render, show/hide text, propTypes test */}
+        {/*GuessedWords tests: render, show/hide text, propTypes test. Unconnected-components */}
         <GuessedWords guessedWords={this.props.guessedWords} />
       </div>
     );
@@ -37,6 +38,12 @@ export class UnconnectedApp extends Component {
 }
 
 // + getLetterMatchCount function tests.
+// + integration test: dispatch action creator  -> redux store
+
+//redux
+// + getSecretWord action creator test axios-> moxios
+
+// + success reducer test
 
 const mapStateToProps = state => {
   const { success, guessedWords, secretWord } = state;
