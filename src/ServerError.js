@@ -1,24 +1,11 @@
 // Challenge #5: Server Error
-import React from "react";
+import React from 'react';
 
-import stringsModule from "./helpers/strings";
-import languageContext from "./contexts/languageContext";
-
-/**
- * Functional react component for revealed secret word
- *    (for use after the player has given up)
- * @function
- * @param {object} props - React props.
- * @returns {JSX.Element} - Rendered component with secret word
- */
-export default function ServerError(props) {
-  const language = React.useContext(languageContext);
-
+export default (props) => {
   return (
     <div data-test="component-server-error" className="alert alert-danger">
-      {stringsModule.getStringByLanguage(language, "serverError")}
+      There was an error retrieving the secret word. Please try again later.
     </div>
   )
 }
-
-// Challenge #5: Server Error
+// END: Challenge #5: Server Error

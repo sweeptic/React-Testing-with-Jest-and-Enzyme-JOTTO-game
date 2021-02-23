@@ -1,30 +1,36 @@
-// Challenge #3: Give Up
-import React from "react";
-import PropTypes from "prop-types";
-
-import stringsModule from "./helpers/strings";
-import languageContext from "./contexts/languageContext";
+// Challenge #3: Give Up Button
+import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
- * Functional react component for revealed secret word
- *    (for use after the player has given up)
+ * Functional react component for "you gave up" message.
  * @function
  * @param {object} props - React props.
- * @returns {JSX.Element} - Rendered component with secret word
+ * @returns {JSX.Element} - Rendered component (or null if `display` prop is false).
  */
-export default function SecretWordReveal({ secretWord }) {
-  const language = React.useContext(languageContext);
-
-  return (
-    <div data-test="component-secret-word-reveal" className="alert alert-danger">
-      <p>{stringsModule.getStringByLanguage(language, "secretWordWas")} "{secretWord}"</p>
-      <p>{stringsModule.getStringByLanguage(language, "betterLuck")}</p>
-    </div>
-  )
-}
+const SecretWordReveal = (props) => {
+  if (props.display) {
+    return (
+      <div data-test="component-secret-word-reveal" className="alert alert-danger">
+        <span data-test="reveal-message">
+          The secret word was "{props.secretWord}"<br />
+          Better luck next time!
+        </span>
+      </div>
+    );
+  } else {
+    return (
+      <div data-test="component-secret-word-reveal" />
+    );
+  }
+};
 
 SecretWordReveal.propTypes = {
-  secretWord: PropTypes.string.isRequired,
-}
+  display: PropTypes.bool.isRequired,
+  // not "isRequired" because it's *not* required if display is false
+  secretWord: PropTypes.string,
+};
 
-// END: Challenge #3: Give Up
+export default SecretWordReveal;
+
+// END: Challenge #3: Give Up Button
