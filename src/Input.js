@@ -1,86 +1,57 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-// Challenge #3: Give Up Button
-import { guessWord, giveUp } from './actions';
-// END: Challenge #3: Give Up Button
+import guessedWordsContext from './contexts/guessedWordsContext';
+import successContext from './contexts/successContext';
+import languageContext from './contexts/languageContext';
+import stringsModule from './helpers/strings';
+import { getLetterMatchCount } from './helpers';
 
-export class UnconnectedInput extends Component {
-  /**
-   * @method constructor
-   * @param {object} props - Component props.
-   * @returns {undefined}
-   */
-  constructor(props) {
-    super(props);
+function Input({ secretWord }) {
+  const language = React.useContext(languageContext);
+  const [success, setSuccess] = successContext.useSuccess();
+  const [guessedWords, setGuessedWords] = guessedWordsContext.useGuessedWords();
+  const [ currentGuess, setCurrentGuess ] = React.useState("");
 
-    this.inputBox = React.createRef();
-    this.submitGuessedWord = this.submitGuessedWord.bind(this);
-    this.giveUpOnClick = this.giveUpOnClick.bind(this);
-  }
-  /**
-   * Run `guessWord` action on the submitted word (if it's not empty)
-   * @method submitGuessedWord
-   * @param {Event} evt - Event that triggered the call.
-   * @returns {undefined}
-   */
-  submitGuessedWord(evt) {
-    evt.preventDefault();
+  if (success) { return null }
 
-    const guessedWord = this.inputBox.current.value;
-    if (guessedWord && guessedWord.length > 0) {
-      this.props.guessWord(guessedWord);
-    }
+  return (
+    <div data-test='component-input'>
+      <form className="form-inline">
+        <input
+          data-test="input-box"
+          className="mb-2 mx-sm-3"
+          type="text"
+          placeholder={stringsModule.getStringByLanguage(language, 'guessInputPlaceholder')}
+          value={currentGuess}
+          onChange={(event) => setCurrentGuess(event.target.value)}
+        />
+        <button
+          data-test="submit-button"
+          onClick={(evt) => {
+            evt.preventDefault();
+            // update guessedWords
+            const letterMatchCount = getLetterMatchCount(currentGuess, secretWord);
+            const newGuessedWords = [...guessedWords, { guessedWord: currentGuess, letterMatchCount }];
+            setGuessedWords(newGuessedWords);
 
-    this.inputBox.current.value = '';
-  }
-
-  giveUpOnClick(evt) {
-    evt.preventDefault(); 
-    this.props.giveUp();
-  }
-
-  render() {
-    const contents = this.props.success || this.props.gaveUp
-      ? null
-      : (
-        <form className="form-inline">
-          <input
-            data-test="input-box"
-            ref={this.inputBox}
-            className="mb-2 mx-sm-3"
-            id="word-guess"
-            type="text"
-            placeholer="enter guess" />
-          <button
-            data-test="submit-button"
-            onClick={this.submitGuessedWord}
-            className="btn btn-primary mb-2"
-            type="submit">
-            Submit
-          </button>
-          {/* Challenge #3: Give Up Button */}
-          <button 
-            data-test="give-up-button"
-            onClick={this.giveUpOnClick}
-            className="btn btn-danger mb-2">
-            Give up
-          </button>
-          {/* END: Challenge #3: Give Up Button */}
-        </form>
-      );
-    return (
-      <div data-test="component-input">
-        { contents }
-      </div>
-    )
-  }
-};
-
-const mapStateToProps = ({ success, gaveUp }) => {
-  return { success, gaveUp };
+            // check against secretWord and update success if needed
+            if (currentGuess === secretWord) {
+              setSuccess(true);
+            }
+            // clear input box
+            setCurrentGuess("");
+          }}
+          className="btn btn-primary mb-2">
+          {stringsModule.getStringByLanguage(language, 'submit')}
+        </button>
+      </form>
+    </div>
+  );
 }
 
-// Challenge #3: Give Up Button
-export default connect(mapStateToProps, { guessWord, giveUp })(UnconnectedInput);
-// END: Challenge #3: Give Up Button
+Input.propTypes = {
+  secretWord: PropTypes.string.isRequired,
+}
+
+export default Input;

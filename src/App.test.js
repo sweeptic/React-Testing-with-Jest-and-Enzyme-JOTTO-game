@@ -1,94 +1,89 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { findByTestAttr } from '../test/testUtils';
+import App from './App';
 
-import { storeFactory } from '../test/testUtils';
-import App, { UnconnectedApp } from './App';
+import hookActions from './actions/hookActions';
+
+const mockGetSecretWord = jest.fn();
 
 /**
- * @function setup
- * @param {object} state - State for this setup.
- * @returns {ShallowWrapper}
+ * Setup function for app component.
+ * @param {string} secretWord - desired secretWord state value for test
+ * @returns {ReactWrapper}
  */
-const setup = (state={}) => {
-  const store = storeFactory(state);
-  const wrapper = shallow(<App store={store} />).dive();
-  return wrapper;
+const setup = (secretWord="party") => {
+  mockGetSecretWord.mockClear();
+  hookActions.getSecretWord = mockGetSecretWord;
+
+  const mockUseReducer = jest.fn()
+    .mockReturnValue([
+      { secretWord, language: 'en' },
+      jest.fn()
+    ]);
+
+  React.useReducer = mockUseReducer;
+
+  // use mount, because useEffect not called on `shallow`
+  // https://github.com/airbnb/enzyme/issues/2086
+  return mount(<App />);
 }
 
-// Challenge #3: Refactored to set up the wrapper once in a beforeEach 
-describe('redux properties', () => {
+test('App renders without error', () => {
+  const wrapper = setup();
+  const component = findByTestAttr(wrapper, 'component-app');
+  expect(component.length).toBe(1);
+});
+
+describe('getSecretWord calls', () => {
+  test('getSecretWord gets called on App mount', () => {
+    setup();
+
+    // check to see if secret word was updated
+    expect(mockGetSecretWord).toHaveBeenCalled();
+  });
+  test('secretWord does not update on App update', () => {
+    const wrapper = setup();
+    mockGetSecretWord.mockClear();
+
+    // wrapper.update() doesn't trigger update
+    // (issue forked from https://github.com/airbnb/enzyme/issues/2091)
+    wrapper.setProps();
+
+    expect(mockGetSecretWord).not.toHaveBeenCalled();
+  });
+});
+
+describe("secretWord is not null", () => {
   let wrapper;
-  const success = false;
-  const gaveUp = false;
-  const secretWord = 'party';
-  const guessedWords = [{ guessedWord: 'train', letterMatchCount: 3 }];
-
   beforeEach(() => {
-    wrapper = setup({ 
-      success,
-      gaveUp,
-      secretWord,
-      guessedWords,
-    });
-  })
-  test('has access to `success` state', () => {
-    const successProp = wrapper.instance().props.success;
-    expect(successProp).toBe(success);
+    wrapper = setup("party");
   });
-  // Challenge #3: Give Up Button
-  test('has access to `gaveUp` state', () => {
-    const gaveUpProp = wrapper.instance().props.gaveUp;
-    expect(gaveUpProp).toBe(gaveUp);
+
+  test("renders app when secretWord is not null", () => {
+    const appComponent = findByTestAttr(wrapper, "component-app");
+    expect(appComponent.exists()).toBe(true);
   });
-  // END: Challenge #3: Give Up Button
-  test('has access to `secretWord` state', () => {
-    const secretWordProp = wrapper.instance().props.secretWord;
-    expect(secretWordProp).toBe(secretWord);
+  test("does not render spinner when secretWord is not null", () => {
+    const spinnerComponent = findByTestAttr(wrapper, "spinner");
+    expect(spinnerComponent.exists()).toBe(false);
   });
-  test('has access to `guessedWords` state', () => {
-    const guessedWordsProp = wrapper.instance().props.guessedWords;
-    expect(guessedWordsProp).toEqual(guessedWords);
-  });
-  test('`getSecretWord` action creator is a function on the props', () => {
-    const getSecretWordProp = wrapper.instance().props.getSecretWord;
-    expect(getSecretWordProp).toBeInstanceOf(Function);
-  });
-  // Challenge #2: Reset Game
-  test('`resetGame` action creator is a function on the props', () => {
-    const resetGameProp = wrapper.instance().props.resetGame;
-    expect(resetGameProp).toBeInstanceOf(Function);
-  });
-  // END: Challenge #2: Reset Game
-});
-// END: Challenge #3: Refactored to set up the wrapper once in a beforeEach 
-
-
-test('`getSecretWord` runs on App mount', () => {
-  const getSecretWordMock = jest.fn();
-
-  const props = {
-    getSecretWord: getSecretWordMock,
-    success: false,
-    // Challenge #3: Give Up Button
-    gaveUp: false,
-    // END: Challenge #3: Give Up Button
-    secretWord: 'party',
-    guessedWords: [],
-  }
-
-  // set up app component with getSecretWordMock as the getSecretWord prop
-  const wrapper = shallow(<UnconnectedApp {...props} />);
-
-  // run lifecycle method
-  wrapper.instance().componentDidMount();
-
-  // check to see if mock ran
-  const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
-
-  expect(getSecretWordCallCount).toBe(1);
 
 });
 
-// NOTE: the logic of what displays according to state 
-// should be tested here. That is left as an exercise for
-// the student. :-)
+describe("secretWord is null", () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup(null);
+  });
+
+  test("does not render app when secretWord is null", () => {
+    const appComponent = findByTestAttr(wrapper, "component-app");
+    expect(appComponent.exists()).toBe(false);
+  });
+  test("renders spinner when secretWord is null", () => {
+    const spinnerComponent = findByTestAttr(wrapper, "spinner");
+    expect(spinnerComponent.exists()).toBe(true);
+  });
+
+});
