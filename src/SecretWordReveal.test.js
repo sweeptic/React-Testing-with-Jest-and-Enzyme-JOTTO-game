@@ -1,57 +1,43 @@
-// Challenge #3: Give Up
+// Challenge #3: Give Up Button
 
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
+
 import { findByTestAttr, checkProps } from '../test/testUtils';
 import SecretWordReveal from './SecretWordReveal';
-import languageContext from './contexts/languageContext';
+
+const secretWord = 'party';
+const defaultProps = { display: false, secretWord };
 
 /**
-* Create ReactWrapper for SecretWordReveal component for testing
-* @param {object} testValues - Props values for this specific test.
-* @returns {ReactWrapper} - Wrapper for SecretWordReveal
+* Factory function to create a ShallowWrapper for the SecretWordReveal component.
+* @function setup
+* @param {object} props - Component props specific to this setup.
+* @returns {ShallowWrapper}
 */
-const setup = ({ language, secretWord }) => {
-  language = language || 'en';
-  secretWord = secretWord || 'party';
-  
-  return mount(
-    <languageContext.Provider value={language}>
-      <SecretWordReveal secretWord={secretWord}/>
-    </languageContext.Provider>
-  );
+const setup = (props={}) => {
+  const setupProps = { ...defaultProps, ...props };
+  return shallow(<SecretWordReveal {...setupProps} />)
 }
 
 test('renders without error', () => {
-  const wrapper = setup({});
+  const wrapper = setup();
   const component = findByTestAttr(wrapper, 'component-secret-word-reveal');
   expect(component.length).toBe(1);
 });
-
-test('secret word is included in text', () => {
-  // explicitly specifying 'party' here (rather than using default
-  // from `setup`) for ease in understanding test
-  const wrapper = setup({ secretWord: 'party' });
+test('renders no text when `display` prop is false', () => {
+  const wrapper = setup({ display: false });
   const component = findByTestAttr(wrapper, 'component-secret-word-reveal');
-  expect(component.text()).toContain('party');
+  expect(component.text()).toBe('');
 });
-
+test('renders message containing secret word when `display` prop is true', () => {
+  const wrapper = setup({ display: true });
+  const message = findByTestAttr(wrapper, 'reveal-message');
+  expect(message.text()).toContain(secretWord);
+});
 test('does not throw warning with expected props', () => {
-  const expectedProps = { secretWord: 'party' };
+  const expectedProps = { display: false, secretWord };
   checkProps(SecretWordReveal, expectedProps);
 });
 
-describe('languagePicker', () => {
-  test('correctly renders `better luck` string in english', () => {
-    const wrapper = setup({ language: "en" });
-    const component = findByTestAttr(wrapper, 'component-secret-word-reveal');
-    expect(component.text()).toContain('Better luck next time!');
-  });
-  test('correctly renders `better luck` string in emoji', () => {
-    const wrapper = setup({ language: "emoji" });
-    const component = findByTestAttr(wrapper, 'component-secret-word-reveal');
-    expect(component.text()).toContain('🍀✨🔤');
-  });
-});
-
-// END: Challenge #3: Give Up
+// END: Challenge #3: Give Up Button
