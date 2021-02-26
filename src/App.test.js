@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { findByTestAttr } from '../../test/testUtils';
-import App from '../App';
+import { findByTestAttr } from '../test/testUtils';
+import App from './App';
 
-import hookActions from '../actions/hookActions';
+import hookActions from './actions/hookActions';
 
 const mockGetSecretWord = jest.fn();
 
