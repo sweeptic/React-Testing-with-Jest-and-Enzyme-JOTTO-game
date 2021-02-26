@@ -22,21 +22,20 @@ export const actionTypes = {
  * @function guessWord
  * @param {string} guessedWord - Guessed word.
  * @returns {function} - Redux Thunk function.
-*/
-export const guessWord = (guessedWord) => {
-  return function(dispatch, getState) {
+ */
+export const guessWord = guessedWord => {
+  return function (dispatch, getState) {
     const secretWord = getState().secretWord;
     const letterMatchCount = getLetterMatchCount(guessedWord, secretWord);
 
     dispatch({
       type: actionTypes.GUESS_WORD,
-      payload: { guessedWord, letterMatchCount }
+      payload: { guessedWord, letterMatchCount },
     });
 
     if (guessedWord === secretWord) {
       dispatch({ type: actionTypes.CORRECT_GUESS });
     }
-
   };
 };
 
@@ -46,22 +45,25 @@ export const guessWord = (guessedWord) => {
  * Separate this out so it can be used in getSecretWord and resetGame.
  * @function getSecretWordDispatch
  * @param {dispatch} dispatch - Redux Thunk dispatch.
- * 
+ *
  */
-const getSecretWordDispatch = (dispatch) => {
-  return axios.get('http://localhost:3030')
-    .then(response => {
-      dispatch({
-        type: actionTypes.SET_SECRET_WORD,
-        payload: response.data
-      });
-    })
-    // Challenge #5: Server Error
-    // note: axios rejects promise if status is 4xx or 5xx
-    .catch(error => {
-      dispatch ({ type: actionTypes.SERVER_ERROR });
-    })
-    // END: Challenge #5: Server Error
+const getSecretWordDispatch = dispatch => {
+  return (
+    axios
+      .get('http://localhost:3030')
+      .then(response => {
+        dispatch({
+          type: actionTypes.SET_SECRET_WORD,
+          payload: response.data,
+        });
+      })
+      // Challenge #5: Server Error
+      // note: axios rejects promise if status is 4xx or 5xx
+      .catch(error => {
+        dispatch({ type: actionTypes.SERVER_ERROR });
+      })
+  );
+  // END: Challenge #5: Server Error
 };
 
 // Challenge #6: Wordnik
@@ -70,10 +72,11 @@ const getSecretWordDispatch = (dispatch) => {
  * Separate this out so it can be used in getSecretWord and resetGame.
  * @function getSecretWordWordnikDispatch
  * @param {dispatch} dispatch - Redux Thunk dispatch.
- * 
+ *
  */
-const getSecretWordWordnikDispatch = (dispatch) => {
-  return axios.get(WORDNIK_URL)
+const getSecretWordWordnikDispatch = dispatch => {
+  return axios
+    .get(WORDNIK_URL)
     .then(response => {
       dispatch({
         type: actionTypes.SET_SECRET_WORD,
@@ -81,13 +84,13 @@ const getSecretWordWordnikDispatch = (dispatch) => {
         // we would reject any word with duplicate letters
         // and try again. However, my commitment to Jotto is
         // not that strong right now. :p
-        payload: response.data.word
+        payload: response.data.word,
       });
     })
     .catch(err => {
-      dispatch({ type: actionTypes.SERVER_ERROR })
+      dispatch({ type: actionTypes.SERVER_ERROR });
     });
-  }
+};
 // END: Challenge #6: Wordnik
 
 /**
@@ -95,21 +98,21 @@ const getSecretWordWordnikDispatch = (dispatch) => {
  *     after axios promise resolves
  * @function getSecretWord
  * @returns {function} - Redux Thunk function.
-*/
+ */
 export const getSecretWord = () => {
-  return getSecretWordWordnikDispatch; // Challenge #6: Wordnik
+  return getSecretWordDispatch; // Challenge #6: Wordnik
 };
 
 /**
  * Action creator to reset game and get a new secret word.
  * @function resetGame
  * @returns {function} - Redux Thunk function that dispatches RESET_GAME action and calls getSecretWord().
-*/
+ */
 export const resetGame = () => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: actionTypes.RESET_GAME });
-    return getSecretWordWordnikDispatch(dispatch); // Challenge #6: Wordnik
-  }
+    return getSecretWordDispatch(dispatch); // Challenge #6: Wordnik
+  };
 };
 // END: Challenge #2: Reset Game
 
@@ -118,7 +121,7 @@ export const resetGame = () => {
  * Simple action creator that returns GIVE_UP action type.
  * @function giveUp
  * @returns {object} - GIVE_UP action type.
-*/
+ */
 export const giveUp = () => {
   return { type: actionTypes.GIVE_UP };
 };
@@ -131,11 +134,11 @@ export const giveUp = () => {
  * @param {string} userSecretWord - Secret word entered by user.
  * @returns {function} - Redux Thunk function.
  */
-export const setUserSecretWord = (userSecretWord) => {
-  return (dispatch) => {
+export const setUserSecretWord = userSecretWord => {
+  return dispatch => {
     dispatch({ type: actionTypes.SET_SECRET_WORD, payload: userSecretWord });
     dispatch({ type: actionTypes.USER_ENTERED });
-  }
+  };
 };
 
 /**
@@ -143,8 +146,6 @@ export const setUserSecretWord = (userSecretWord) => {
  * @function setUserEntering
  * @returns {object} - Action with type USER_ENTERING.
  */
-export const setUserEntering = () => (
-  { type: actionTypes.USER_ENTERING }
-);
+export const setUserEntering = () => ({ type: actionTypes.USER_ENTERING });
 
 // END: Challenge #4: Enter Secret Word
